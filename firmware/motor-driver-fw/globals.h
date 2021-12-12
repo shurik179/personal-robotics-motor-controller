@@ -19,19 +19,19 @@
 #define  GREEN           0xFF0000
 
 
-//pins - FIXME
-#define PIN_MOTOR1_A     0
-#define PIN_MOTOR1_B     0
-#define PIN_MOTOR2_A     0
-#define PIN_MOTOR2_B     0
-#define PIN_ENC1_A       0
-#define PIN_ENC1_B       0
-#define PIN_ENC2_A       0
-#define PIN_ENC2_B       0
-#define PIN_NEOPIXEL     0
-#define PIN_ERROR1       0
-#define PIN_ERROR2       0
-#define PIN_ENABLE       0
+//pins 
+#define PIN_MOTOR1_DIR   27
+#define PIN_MOTOR1_PWM   28
+#define PIN_MOTOR2_DIR   2
+#define PIN_MOTOR2_PWM   3
+#define PIN_ENC1_A       16
+#define PIN_ENC1_B       15
+#define PIN_ENC2_A       14
+#define PIN_ENC2_B       13
+#define PIN_NEOPIXEL     18
+#define PIN_ERROR1       17
+#define PIN_ERROR2       12
+#define PIN_ENABLE       26
 
 // I2C register bank
 #define REG_SIZE32 10 //size of register bank, in 4-byte (32 bit) units
