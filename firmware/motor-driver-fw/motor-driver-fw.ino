@@ -6,18 +6,18 @@
 #include "motors.h"
 #include "neopixel.h"
 
-#define FW_VERSION_MAJOR 2
-#define FW_VERSION_MINOR 1
+#define FW_VERSION_MAJOR 0
+#define FW_VERSION_MINOR 9
 //uncomment to allow debugging print to Serial.
 #define DEBUG_PRINT
 
 uint32_t loopCount=0;
 
 void setup(){
-    //i2cMasterBegin(100000); //start I2C bus on Wire1 as master, in regular mode (100 kHz)
-    i2cSlaveBegin();        //start i2c bus on Wire, as a slave
-    initRegmap();
-    *whoAmI=WHO_AM_I;
+
+    i2cSlaveBegin(DEFAULT_I2C_ADDRESS);        //start i2c bus on Wire, as a slave
+    //initRegmap();
+    *whoAmI=DEFAULT_I2C_ADDRESS;
     fwVersion[0]=FW_VERSION_MINOR;
     fwVersion[1]=FW_VERSION_MAJOR;
 #ifdef DEBUG_PRINT
@@ -26,23 +26,13 @@ void setup(){
           delay(10);
         }*/
         delay(1000);
-        Serial.println("Yozh firmware started");
+        Serial.println("Motor driver firmware started");
         delay(1000);
 #endif
-    for (int i=0; i<2; i++){
-        servoPosition[i] = 1500;
-    }
-    *motorMode = MOTOR_MODE_POWER;
-    setupTimers();
-    setupMotorPins();
-    setServos();//FIXME
-    *linearrayConfig = 0;
-    //*imuStatus = IMU_OFF;
-    *neopixelBrightness=64;
-    neopixelColors[1]=150;
-    neopixelColors[4]=150;
-    pixelBegin();
-    pixelUpdate();
+    *motorMode = MOTOR_MODE_NOPID;
+    neopixel_setup();
+    neopixel_update();
+    //setupMotorPins();
     Serial.println("Setup ends");
 }
 

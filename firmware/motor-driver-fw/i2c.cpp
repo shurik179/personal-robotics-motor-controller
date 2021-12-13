@@ -1,49 +1,15 @@
 #include "i2c.h"
 #include <Wire.h>
 #include "wiring_private.h"
-#include "regmap.h"
+#include "globals.h"
 volatile uint8_t requestAddress;
 // Flags
 
-void i2cMasterBegin(int freq){
-  Wire1.begin();
-  Wire1.setClock(freq);
-  pinPeripheral(PIN_WIRE1_SDA,PIO_SERCOM);
-  pinPeripheral(PIN_WIRE1_SCL,PIO_SERCOM);
-}
 
-void i2cMasterWriteByte(uint8_t address, uint8_t regAddress, uint8_t data) {
-  Wire1.beginTransmission(address);  // Initialize the Tx buffer
-  Wire1.write(regAddress);           // Put slave register address in Tx buffer
-  Wire1.write(data);                 // Put data in Tx buffer
-  Wire1.endTransmission();           // Send the Tx buffer
-}
-
-uint8_t i2cMasterReadByte(uint8_t address, uint8_t regAddress) {
-  uint8_t data; // `data` will store the register data
-  Wire1.beginTransmission(address);         // Initialize the Tx buffer
-  Wire1.write(regAddress);	                 // Put slave register address in Tx buffer
-  Wire1.endTransmission();             // Send the Tx buffer, but send a restart to keep connection alive
-  Wire1.requestFrom(address, (uint8_t) 1);  // Read one byte from slave register address
-  data = Wire1.read();                      // Fill Rx buffer with result
-  return data;                             // Return data read from slave register
-}
-
-void i2cMasterReadBytes(uint8_t address, uint8_t regAddress, uint8_t count, uint8_t * dest) {
-  Wire1.beginTransmission(address);   // Initialize the Tx buffer
-  Wire1.write(regAddress);            // Put slave register address in Tx buffer
-  Wire1.endTransmission();       // Send the Tx buffer, but send a restart to keep connection alive
-  uint8_t i = 0;
-  Wire1.requestFrom(address, count);  // Read bytes from slave register address
-  while (Wire1.available()) {
-    dest[i++] = Wire1.read();
-  }         // Put read results in the Rx buffer
-}
-
-void i2cSlaveBegin(){
-  Wire.begin(SLAVE_ADDRESS);
-  pinPeripheral(PIN_WIRE_SDA,PIO_SERCOM);
-  pinPeripheral(PIN_WIRE_SCL,PIO_SERCOM);
+void i2cSlaveBegin(uint8_t address){
+  Wire.begin(address);
+  //pinPeripheral(PIN_WIRE_SDA,PIO_SERCOM);
+  //pinPeripheral(PIN_WIRE_SCL,PIO_SERCOM);
   Wire.onRequest(i2cSlaveRequestEvent);
   Wire.onReceive(i2cSlaveReceiveEvent);
 }
@@ -58,16 +24,24 @@ void i2cSlaveRequestEvent(){
 }
 
 void i2cSlaveReceiveEvent(int bytesReceived){
-    uint8_t offset=Wire.read();//get the register offset, always first byte sent
-    if ((bytesReceived>1) && (offset<40)) { //FIXME
+    uint8_t reg_address=Wire.read();//get the register offset, always first byte sent
+    if ((bytesReceived>1) && (reg_address<RW_REGISTERS)) {
         //this was to write data to register
         for (int i=0; i<bytesReceived-1; i++){
-            REGBANK[offset+i]=Wire.read();
+            REGBANK[reg_address+i]=Wire.read();
         }
-        //Serial.print("Wrote "); Serial.print(bytesReceived-1); Serial.print(" bytes to register "); Serial.println(offset);
-        setFlag(registerFlag[offset]);
-        //Serial.print("received data at offset ");Serial.println(offset);
+        switch (reg_address) {
+          case REG_ENABLE:
+            flag_enable=true;
+            break;
+          case REG_ENC_RESET:
+            flag_enc_reset=true;
+            break;
+          case REG_POWER1:
+          case REG_POWER2:
+            flag_motor_power=true;
+        }
     } else {
-        requestAddress=offset; //save for request handler
+        requestAddress=reg_address; //save for request handler
     }
 }

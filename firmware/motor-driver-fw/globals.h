@@ -19,7 +19,7 @@
 #define  GREEN           0xFF0000
 
 
-//pins 
+//pins
 #define PIN_MOTOR1_DIR   27
 #define PIN_MOTOR1_PWM   28
 #define PIN_MOTOR2_DIR   2
@@ -100,6 +100,14 @@ extern volatile uint8_t  * whoAmI;
 extern volatile uint8_t  * motorStatus;
 extern volatile int32_t  * encoder; //2-element array
 extern volatile int16_t  * speed;   //2-element array
+
+/*
+ FLAGS
+*/
+
+volatile bool flag_enc_reset;
+volatile bool flag_enable;
+volatile bool flag_motor_power;
 
 
 #endif
