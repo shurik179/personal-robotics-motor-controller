@@ -1,13 +1,22 @@
 #ifndef _MD_GLOBAL_H
 #define _MD_GLOBAL_H
-#include <Arduino.h>
+
+
+
 /* various global variables, defines, etc */
+
+
+#define FW_VERSION_MAJOR 0
+#define FW_VERSION_MINOR 9
 
 #define DEFAULT_I2C_ADDRESS 0x54
 
-//Motor modes
-#define MOTOR_MODE_NOPID 0
-#define MOTOR_MODE_PID   1
+//max motor power
+#define MAX_MOTOR_POWER 1000 
+
+//Motor PID modes
+#define MODE_NOPID 0
+#define MODE_PID   1
 
 //Statuses
 #define STATUS_OFF       0
@@ -15,23 +24,9 @@
 #define STATUS_ERROR     2
 
 //colors for Neopixel; note that it uses grb color order
-#define  RED             0x00FF00
-#define  GREEN           0xFF0000
-
-
-//pins
-#define PIN_MOTOR1_DIR   27
-#define PIN_MOTOR1_PWM   28
-#define PIN_MOTOR2_DIR   2
-#define PIN_MOTOR2_PWM   3
-#define PIN_ENC1_A       16
-#define PIN_ENC1_B       15
-#define PIN_ENC2_A       14
-#define PIN_ENC2_B       13
-#define PIN_NEOPIXEL     18
-#define PIN_ERROR1       17
-#define PIN_ERROR2       12
-#define PIN_ENABLE       26
+#define  RED             0x004000
+#define  GREEN           0x400000
+#define  BLUE            0x000040
 
 // I2C register bank
 #define REG_SIZE32 10 //size of register bank, in 4-byte (32 bit) units
@@ -54,7 +49,7 @@ extern  volatile byte * REGBANK;
  */
 //R/W registers
 #define REG_ENABLE              0
-#define REG_MOTOR_MODE          1
+#define REG_PID_MODE          1
 #define REG_MAX_SPEED           2
 #define REG_PID_KP              4
 #define REG_PID_TI              6
@@ -79,15 +74,15 @@ extern  volatile byte * REGBANK;
  * *********************************************************************
  */
 
-extern volatile uint8_t  * motorEnable;
-extern volatile uint16_t * motorMaxspeed;
-extern volatile uint16_t * motorKp;
-extern volatile uint16_t * motorTi;
-extern volatile uint16_t * motorTd;
-extern volatile uint16_t * motorIlim;
-extern volatile uint8_t  * motorMode;
-extern volatile byte     * encoderReset;
-extern volatile int16_t  * motorPower; //2-element array
+extern volatile uint8_t  * motor_enable;
+extern volatile uint16_t * motor_maxspeed;
+extern volatile uint16_t * motor_Kp;
+extern volatile uint16_t * motor_Ti;
+extern volatile uint16_t * motor_Td;
+extern volatile uint16_t * motor_Ilim;
+extern volatile uint8_t  * pid_mode;
+extern volatile byte     * encoder_reset;
+extern volatile int16_t  * motor_power; //2-element array
 
 /* *********************************************
  *  Read-only registers
@@ -95,9 +90,9 @@ extern volatile int16_t  * motorPower; //2-element array
  */
 
 
-extern volatile uint8_t  * fwVersion; //2-element array
-extern volatile uint8_t  * whoAmI;
-extern volatile uint8_t  * motorStatus;
+extern volatile uint8_t  * fw_version; //2-element array
+extern volatile uint8_t  * who_am_i;
+extern volatile uint8_t  * motor_status;
 extern volatile int32_t  * encoder; //2-element array
 extern volatile int16_t  * speed;   //2-element array
 
@@ -105,9 +100,16 @@ extern volatile int16_t  * speed;   //2-element array
  FLAGS
 */
 
-volatile bool flag_enc_reset;
-volatile bool flag_enable;
-volatile bool flag_motor_power;
+extern volatile bool flag_enc_reset;
+extern volatile bool flag_enable;
+extern volatile bool flag_motor_power;
+
+/* *********************************************
+ *  Function declaration
+ * *********************************************
+ */
+
+void globals_init();
 
 
 #endif

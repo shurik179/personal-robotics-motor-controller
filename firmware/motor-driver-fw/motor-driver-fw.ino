@@ -1,99 +1,60 @@
 //#include "wiring_private.h"
 //registers
+#include "pins.h"
 #include "globals.h"
 #include "i2c.h"
 //code for motors, encoders, and servos
 #include "motors.h"
 #include "neopixel.h"
 
-#define FW_VERSION_MAJOR 0
-#define FW_VERSION_MINOR 9
+
 //uncomment to allow debugging print to Serial.
 #define DEBUG_PRINT
 
-uint32_t loopCount=0;
+#define SPEED_UPDATE_INTERVAL 40000 //how frequently should speed be computed? in microseconds
+                                    //40 ms give frequency of 25 Hz
+uint32_t last_speed_update  = micros();
+
+
 
 void setup(){
+    pins_init();    //set up pin directions
+    globals_init(); // initialize global variables and register bank
+    i2c_begin();    //start i2c bus on Wire, as a slave
+    neopixel_init();
+    motors_init(); //set up motor controller, etc. Initially it shoudl be in disabled state, with pid mode PID_OFF
 
-    i2cSlaveBegin(DEFAULT_I2C_ADDRESS);        //start i2c bus on Wire, as a slave
     //initRegmap();
-    *whoAmI=DEFAULT_I2C_ADDRESS;
-    fwVersion[0]=FW_VERSION_MINOR;
-    fwVersion[1]=FW_VERSION_MAJOR;
-#ifdef DEBUG_PRINT
-        Serial.begin(9600);
-        /*while(!Serial){
-          delay(10);
-        }*/
-        delay(1000);
-        Serial.println("Motor driver firmware started");
-        delay(1000);
-#endif
-    *motorMode = MOTOR_MODE_NOPID;
-    neopixel_setup();
-    neopixel_update();
-    //setupMotorPins();
-    Serial.println("Setup ends");
+    //Serial.println("Setup ends");
 }
 
 void loop(){
-    loopCount++;
-    //High priority: done every cycle
-    //First, update configuration/motors/servos
-    if (isSet(FLAG_MOTOR_CONFIG)){
-        clearFlag(FLAG_MOTOR_CONFIG);
-        #ifdef DEBUG_PRINT
-            Serial.println("Updating motor configuration");
-        #endif
-        //FIXME
+    //first, check if one of motor drivers has error condition
+    bool error = digitalRead(PIN_ERROR1) || digitalRead (PIN_ERROR2);
+    if (error) {
+        motors_on_off(STATUS_ERROR);//disable and set status
+    } else if (flag_enable) {
+        //we got command from host to enable or disable motors
+        flag_enable = false; //unset flag
+        motors_on_off( * motor_enable);
     }
-    if (isSet(FLAG_SERVO)){
-        clearFlag(FLAG_SERVO);//unset the servo flag bit
-        #ifdef DEBUG_PRINT
-        Serial.print("setting servo to new positions: ");
-        Serial.print(servoPosition[0]); Serial.println(" ");
-        #endif
-        setServos();
+    //now, let us check if we got an encoder reste command
+    if (flag_enc_reset) {
+        flag_enc_reset = 0;
+        encoders_reset();
     }
-    if (isSet(FLAG_ENC_RESET)) {
-        clearFlag(FLAG_ENC_RESET);
-        #ifdef DEBUG_PRINT
-        Serial.println("Resetting encoder(s)");
-        #endif
-        resetEncoders();
+    //finally, check if we had a new speed setting for motors
+    if (flag_motor_power) {
+        flag_motor_power = false;
+        motors_set_speeds();
     }
-    if (isSet(FLAG_MOTOR_MODE)||isSet(FLAG_MOTOR_POWER)){
-        clearFlag(FLAG_MOTOR_MODE);
-        clearFlag(FLAG_MOTOR_POWER);
-        #ifdef DEBUG_PRINT
-            Serial.println("Updating motor mode/power  configuration");
-            Serial.print("Motor mode: "); Serial.print(*motorMode);
-            Serial.print(" powerL: "); Serial.print(motorPower[0]);
-            Serial.print(" powerR: "); Serial.println(motorPower[1]);
-        #endif
-        setMotors();
-    }
-    if (isSet(FLAG_LINEARRAY_CONFIG)){
-        clearFlag(FLAG_LINEARRAY_CONFIG);
-        if (*linearrayConfig) {
-            enableLineArray();
-        } else {
-            disableLineArray();
+    //now, let su check if it is time to compute motor speeds and apply PID corrections
+    if (micros()-last_speed_update > SPEED_UPDATE_INTERVAL) {
+        last_speed_update = micros();
+        compute_speed();
+        if (*pid_mode == MODE_PID) {
+            motors_pid_update();
         }
     }
-    if (isSet(FLAG_NEOPIXEL_CONFIG)){
-        clearFlag(FLAG_NEOPIXEL_CONFIG);
-        pixelUpdateConfig();
-    }
-    if (isSet(FLAG_NEOPIXEL)){
-        clearFlag(FLAG_NEOPIXEL);
-        pixelUpdate();
-    }
-    //now, update readings of sensors etc
-    updateVsense();
-    if (*linearrayConfig) {
-        updateLineArray();
-    }
-    //update motor speed reading and pid speed adjustment
-    updateSpeed();
+
 }

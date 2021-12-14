@@ -2,11 +2,10 @@
 #define _MD_I2C_H
 #include <Arduino.h>
 #define  MAX_TRANSMIT_SIZE 16 //maximal number of bytes the master can request
-extern volatile uint8_t requestAddress;
 
-void i2cSlaveBegin(uint8_t address);
-void i2cSlaveRequestEvent();
-void i2cSlaveReceiveEvent(int bytesReceived);
+void i2c_begin();
+void i2c_request_event();
+void i2c_receive_event(int bytes_received);
 
 
 #endif
