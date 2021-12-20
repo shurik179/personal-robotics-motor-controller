@@ -31,6 +31,7 @@ void setup(){
 void loop(){
     //first, check if one of motor drivers has error condition
     bool error = digitalRead(PIN_ERROR1) || digitalRead (PIN_ERROR2);
+    error = false;
     if (error) {
         motors_on_off(STATUS_ERROR);//disable and set status
     } else if (flag_enable) {
