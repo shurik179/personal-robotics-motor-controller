@@ -13,7 +13,8 @@ MD_REG_PID_TD          = const(8)
 MD_REG_PID_ILIM        = const(10)
 MD_REG_POWER1          = const(12)
 MD_REG_POWER2          = const(14)
-MD_REG_ENC_RESET       = const(16)
+MD_REG_REVERSE         = const(16)
+#MD_REG_ENC_RESET       = const(16)
 
 # Read-only registers
 MD_REG_FW_VERSION      = const(24)
@@ -29,6 +30,7 @@ class md():
     def __init__(self, i2c, address=MD_DEFAULT_I2C_ADDRESS):
         self._i2c = i2c
         self._addr = address
+        self.encoder=[0,0]
         #check connection
         who_am_i = self._read_8(MD_REG_WHO_AM_I)
         if who_am_i != MD_DEFAULT_I2C_ADDRESS:
@@ -66,7 +68,18 @@ class md():
         self._write_16_array(MD_REG_POWER1, [power1, power2])
 
 ######## encoders  ##################################
-#FIXME
+    def reverse_encoder(self, i):
+        if i==0:
+            self._write_8(MD_REG_REVERSE, 1)
+        else:
+            self._write_8(MD_REG_REVERSE, 4)
+        
+    def get_encoder(self,i):
+        if i==0: 
+            return(self._read_32(MD_REG_ENCODER1))
+        else:
+            return(self._read_32(MD_REG_ENCODER2))
+            
 
 ##########  I2C UTILITY  ########################################
     def _write_8(self, register, data):
@@ -118,7 +131,7 @@ class md():
             else:
                 result_array[i] = raw
 
-    def _read_32(self, address):
+    def _read_32(self, register):
         # Read and return a 32-bit signed little  endian value  from the
         # specified  register address.
 

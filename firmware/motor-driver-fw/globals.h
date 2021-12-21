@@ -12,7 +12,7 @@
 #define DEFAULT_I2C_ADDRESS 0x54
 
 //max motor power
-#define MAX_MOTOR_POWER 1000 
+#define MAX_MOTOR_POWER 1000
 
 //Motor PID modes
 #define MODE_NOPID 0
@@ -49,7 +49,7 @@ extern  volatile byte * REGBANK;
  */
 //R/W registers
 #define REG_ENABLE              0
-#define REG_PID_MODE          1
+#define REG_PID_MODE            1
 #define REG_MAX_SPEED           2
 #define REG_PID_KP              4
 #define REG_PID_TI              6
@@ -57,7 +57,8 @@ extern  volatile byte * REGBANK;
 #define REG_PID_ILIM            10
 #define REG_POWER1              12
 #define REG_POWER2              14
-#define REG_ENC_RESET           16
+#define REG_REVERSE             16
+//#define REG_ENC_RESET           16
 //Read-only registers
 #define REG_FW_VERSION          24
 #define REG_WHO_AM_I            26
@@ -81,8 +82,9 @@ extern volatile uint16_t * motor_Ti;
 extern volatile uint16_t * motor_Td;
 extern volatile uint16_t * motor_Ilim;
 extern volatile uint8_t  * pid_mode;
-extern volatile byte     * encoder_reset;
 extern volatile int16_t  * motor_power; //2-element array
+extern volatile uint8_t  * reverse_config; //configurationd ata about motors and encoders - shoudl they be reversed?
+//extern volatile byte     * encoder_reset;
 
 /* *********************************************
  *  Read-only registers
@@ -93,7 +95,8 @@ extern volatile int16_t  * motor_power; //2-element array
 extern volatile uint8_t  * fw_version; //2-element array
 extern volatile uint8_t  * who_am_i;
 extern volatile uint8_t  * motor_status;
-extern volatile int32_t  * encoder; //2-element array
+extern volatile int32_t  * encoder_raw; //2-element array
+extern volatile int32_t  * encoder; //2-element array - these are the vlaues after possible reversal
 extern volatile int16_t  * speed;   //2-element array
 
 /*

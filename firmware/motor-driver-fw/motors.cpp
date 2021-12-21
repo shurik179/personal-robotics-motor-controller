@@ -3,18 +3,30 @@
 #include "pins.h"
 #include "motors.h"
 #include "neopixel.h"
+#include "QuadratureDecoder.h"
 
 int32_t prev_encoder[]={0,0};
+int32_t enc1_index, enc2_index;
 
+
+
+QuadratureDecoder decoder;
 
 void motors_init(){
     analogWriteFreq(18000); //set frequency to 18 kHz
     analogWriteRange(MAX_MOTOR_POWER);
-    encoders_reset();
+    prev_encoder[0]=0;
+    prev_encoder[1]=0;
+    speed[0]=0;
+    speed[1]=0;
     digitalWrite(PIN_DISABLE, HIGH);
     * motor_status = STATUS_OFF;
     * pid_mode = MODE_NOPID;
     neopixel_update();
+    //now, initialize encoders
+    decoder.init(pio0);
+    enc1_index = decoder.addQuadratureEncoder(PIN_ENC1_B, &encoder_raw[0]);
+    enc2_index = decoder.addQuadratureEncoder(PIN_ENC2_B, &encoder_raw[1]);
 }
 void motors_on_off(uint8_t status){
     if (status==STATUS_ON){
@@ -23,7 +35,7 @@ void motors_on_off(uint8_t status){
         * pid_mode = MODE_NOPID;
         motor_power[0]=0;
         motor_power[1]=0;
-        encoders_reset();
+        //encoders_reset();
     } else {
         //disabling motors
         digitalWrite(PIN_DISABLE, HIGH);
@@ -40,7 +52,7 @@ void motors_set_speeds(){
             power2=motor_power[1];
             break;
         case MODE_PID:
-            //FIXME - need to activate PID 
+            //FIXME - need to activate PID
             break;
     }
     motors_set_raw(power1, power2);
@@ -52,14 +64,6 @@ void motors_set_raw(int16_t power1, int16_t power2){
     analogWrite(PIN_MOTOR1_PWM, power1);
     digitalWrite(PIN_MOTOR2_DIR, dir2);
     analogWrite(PIN_MOTOR2_PWM, power2);
-}
-void encoders_reset(){
-    encoder[0]=0;
-    encoder[1]=0;
-    prev_encoder[0]=0;
-    prev_encoder[1]=0;
-    speed[0]=0;
-    speed[1]=0;
 }
 void compute_speed(){
     //FIXME

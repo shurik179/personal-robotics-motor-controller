@@ -30,20 +30,19 @@ void setup(){
 
 void loop(){
     //first, check if one of motor drivers has error condition
-    bool error = digitalRead(PIN_ERROR1) || digitalRead (PIN_ERROR2);
-    error = false;
-    if (error) {
-        motors_on_off(STATUS_ERROR);//disable and set status
-    } else if (flag_enable) {
+    uint8_t new_status = (digitalRead(PIN_ERROR2)<<1) || digitalRead(PIN_ERROR1);
+    if (new_status != *motor_status){
+        //update status and neopixel
+        * motor_status = new_status;
+        neopixel_update();
+    }
+    //now, check if we got enable/disable commands
+    if (flag_enable) {
         //we got command from host to enable or disable motors
         flag_enable = false; //unset flag
         motors_on_off( * motor_enable);
     }
-    //now, let us check if we got an encoder reste command
-    if (flag_enc_reset) {
-        flag_enc_reset = 0;
-        encoders_reset();
-    }
+
     //finally, check if we had a new speed setting for motors
     if (flag_motor_power) {
         flag_motor_power = false;

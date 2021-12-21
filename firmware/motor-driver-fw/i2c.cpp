@@ -3,6 +3,7 @@
 #include "wiring_private.h"
 #include "pins.h"
 #include "globals.h"
+#include "motors.h"
 volatile uint8_t request_address;
 // Flags
 
@@ -24,7 +25,10 @@ void i2c_request_event(){
     //put maximum possible number of bytes in the buffer - the master will stop transimssion
     //after reading as many as it needs
     //start at offset requestAddress - the one received from master at last transimssion
-    // All reads use REGA
+   if ( (request_address == REG_ENCODER1) || (request_address== REG_ENCODER2)) {
+       update_encoders();
+   }
+
     Wire.write((char *)REGBANK+request_address, MAX_TRANSMIT_SIZE);
     //Serial.print("Sent bytes starting at offset "); Serial.println(requestAddress);
 }
@@ -41,9 +45,9 @@ void i2c_receive_event(int bytes_received){
             case REG_ENABLE:
                 flag_enable=true;
                 break;
-            case REG_ENC_RESET:
+            /*case REG_ENC_RESET:
                 flag_enc_reset=true;
-                break;
+                break; */
             case REG_POWER1:
             case REG_POWER2:
                 flag_motor_power=true;
