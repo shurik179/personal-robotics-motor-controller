@@ -80,6 +80,11 @@ class md():
         else:
             return(self._read_32(MD_REG_ENCODER2))
             
+    def get_speed(self,i):
+        if i==0: 
+            return(self._read_16(MD_REG_SPEED1))
+        else:
+            return(self._read_16(MD_REG_SPEED2))
 
 ##########  I2C UTILITY  ########################################
     def _write_8(self, register, data):
@@ -107,7 +112,7 @@ class md():
         result = self._i2c.readfrom(self._addr, 1)
         return result[0]
 
-    def _read_16(self, address):
+    def _read_16(self, register):
         # Read and return a 16-bit signed little  endian value  from the
         # specified  register address.
         self._i2c.writeto(self._addr, bytes([register]))

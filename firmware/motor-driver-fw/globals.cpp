@@ -43,6 +43,6 @@ volatile bool flag_motor_power=false;
 void globals_init(){
     *who_am_i = DEFAULT_I2C_ADDRESS;
     *motor_enable = 0;
-    *motor_status = STATUS_OFF;
+    *motor_status = STATUS_M1_OFF|STATUS_M2_OFF;
     *pid_mode     = MODE_NOPID;
 }

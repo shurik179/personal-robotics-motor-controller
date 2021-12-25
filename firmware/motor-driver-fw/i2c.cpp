@@ -30,7 +30,7 @@ void i2c_request_event(){
    }
 
     Wire.write((char *)REGBANK+request_address, MAX_TRANSMIT_SIZE);
-    //Serial.print("Sent bytes starting at offset "); Serial.println(requestAddress);
+    //Serial.print("Sent bytes starting at offset "); Serial.println(request_address);
 }
 
 void i2c_receive_event(int bytes_received){

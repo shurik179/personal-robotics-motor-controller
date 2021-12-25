@@ -18,10 +18,12 @@
 #define MODE_NOPID 0
 #define MODE_PID   1
 
+
+
 //Statuses
-#define STATUS_OFF       0
-#define STATUS_ON        1
-#define STATUS_ERROR     2
+#define STATUS_ON        0
+#define STATUS_M1_OFF    1
+#define STATUS_M2_OFF    2
 
 //colors for Neopixel; note that it uses grb color order
 #define  RED             0x004000

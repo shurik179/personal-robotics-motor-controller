@@ -25,16 +25,11 @@ void neopixel_set_color(uint32_t pixel_grb) {
 
 void neopixel_update(){
     uint32_t color;
-    switch(*motor_status){
-        case STATUS_ON:
-            color = GREEN;
-            break;
-        case STATUS_OFF:
-            color = BLUE;
-            break;
-        case STATUS_ERROR:
-            color = RED;
-            break;
+    if (*motor_status == STATUS_ON) {
+        color = GREEN;
+    } else {
+        color = BLUE;
     }
+    
     neopixel_set_color(color);
 }

@@ -2,6 +2,8 @@
 #define _MD_MOTORS_H
 #include "globals.h"
 
+#define MOTOR_FREQ 10000 
+
 void motors_init();
 void motors_on_off(uint8_t status);
 void motors_set_speeds();

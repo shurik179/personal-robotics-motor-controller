@@ -30,7 +30,8 @@ void setup(){
 
 void loop(){
     //first, check if one of motor drivers has error condition
-    uint8_t new_status = (digitalRead(PIN_ERROR2)<<1) || digitalRead(PIN_ERROR1);
+    uint8_t new_status = (digitalRead(PIN_ERROR2)<<1) | digitalRead(PIN_ERROR1);
+    //Serial.println(new_status);
     if (new_status != *motor_status){
         //update status and neopixel
         * motor_status = new_status;
@@ -51,6 +52,7 @@ void loop(){
     //now, let su check if it is time to compute motor speeds and apply PID corrections
     if (micros()-last_speed_update > SPEED_UPDATE_INTERVAL) {
         last_speed_update = micros();
+        //Serial.println(last_speed_update);
         compute_speed();
         if (*pid_mode == MODE_PID) {
             motors_pid_update();
