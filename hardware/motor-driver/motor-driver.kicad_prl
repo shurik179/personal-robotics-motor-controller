@@ -14,11 +14,11 @@
     },
     "ratsnest_display_mode": 0,
     "selection_filter": {
-      "dimensions": false,
-      "footprints": true,
+      "dimensions": true,
+      "footprints": false,
       "graphics": true,
       "keepouts": false,
-      "lockedItems": true,
+      "lockedItems": false,
       "otherItems": false,
       "pads": false,
       "text": true,
@@ -57,7 +57,6 @@
       29,
       30,
       32,
-      33,
       34,
       35,
       36
