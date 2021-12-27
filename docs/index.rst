@@ -18,17 +18,17 @@ Key properties of this controller are as follows:
 
 * Current per channel
 
-  - 8A peak, current limtied
+  - 8A peak, current limited
 
-  - 3.5A continuous if used withotu heatsinks
+  - 3.5A continuous if used without heatsinks
 
-  - 5A continuous with optinal heatsinks
+  - 5A continuous with optional heatsinks
 
 * Support for quadrature encoders (3.3v) for each channel
 
 * Closed loop speed control, using PID algorithm
 
-* Variety of protection feaures: automatic overcurrent, overtemperature,
+* Variety of protection features: automatic overcurrent, overtemperature,
   undervoltage, and short circuit protection
 
 * Controlled by a host microcontroller  or single board computer such as Raspberry Pi

@@ -14,7 +14,7 @@ int32_t enc1_index, enc2_index;
 QuadratureDecoder decoder;
 
 void motors_init(){
-    analogWriteFreq(MOTOR_FREQ); 
+    analogWriteFreq(MOTOR_FREQ);
     analogWriteRange(MAX_MOTOR_POWER);
     prev_encoder[0]=0;
     prev_encoder[1]=0;
@@ -75,7 +75,7 @@ void compute_speed(){
     update_encoders();
     int32_t count0=encoder[0];
     int32_t count1=encoder[1];
-    speed[0] = ((count0-prev_encoder[0])*1000000.0)/delta;
+    speed[0] = ((count0-prev_encoder[0])*1000000.0)/delta; //FIXME
     speed[1] = ((count1-prev_encoder[1])*1000000.0)/delta;
     Serial.println(speed[0]);
     prev_encoder[0]=count0;

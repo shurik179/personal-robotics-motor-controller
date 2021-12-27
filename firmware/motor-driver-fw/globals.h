@@ -66,9 +66,9 @@ extern  volatile byte * REGBANK;
 #define REG_WHO_AM_I            26
 #define REG_STATUS              27
 #define REG_ENCODER1            28
-#define REG_ENCODER2            30
-#define REG_SPEED1              32
-#define REG_SPEED2              34
+#define REG_ENCODER2            32
+#define REG_SPEED1              36
+#define REG_SPEED2              38
 
 
 /* **********************************************************************

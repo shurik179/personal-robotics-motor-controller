@@ -21,9 +21,9 @@ MD_REG_FW_VERSION      = const(24)
 MD_REG_WHO_AM_I        = const(26)
 MD_REG_STATUS          = const(27)
 MD_REG_ENCODER1        = const(28)
-MD_REG_ENCODER2        = const(30)
-MD_REG_SPEED1          = const(32)
-MD_REG_SPEED2          = const(34)
+MD_REG_ENCODER2        = const(32)
+MD_REG_SPEED1          = const(36)
+MD_REG_SPEED2          = const(38)
 
 
 class md():
