@@ -31,6 +31,7 @@ class md():
         self._i2c = i2c
         self._addr = address
         self.encoder=[0,0]
+        self.speed=[0,0]
         #check connection
         who_am_i = self._read_8(MD_REG_WHO_AM_I)
         if who_am_i != MD_DEFAULT_I2C_ADDRESS:
@@ -52,6 +53,13 @@ class md():
     def status(self):
         return self._read_8(MD_REG_STATUS)
 
+    def fw_version(self):
+        minor = self._read_8(MD_REG_FW_VERSION)
+        major = self._read_8(MD_REG_FW_VERSION + 1)
+        version="{}.{}"
+        return(version.format(major,minor))
+
+
 ######## MOTOR CONTROL, NO PID ##################################
 
     def set_motor(self, motor, power):
@@ -66,6 +74,23 @@ class md():
         if power2 is None:
             power2 = power1
         self._write_16_array(MD_REG_POWER1, [power1, power2])
+######## MOTOR CONTROL WITH PID ##################################
+
+    def configure_pid(self, maxspeed, Kp = None, Ti = None, Td = None, Ilim = None):
+        if Kp is None:
+            Kp = 0.8/maxspeed
+            Ti = 0.3
+            Td = 0.03
+            Ilim = 1000
+        data = [round(maxspeed), round(Kp*10000000), round(Ti*1000), round (Td*1000), round(Ilim)]
+        self._write_16_array(MD_REG_MAX_SPEED, data)
+
+    def pid_on(self):
+        self._write_8(MD_REG_PID_MODE, 1)
+
+    def pid_off(self):
+        self._write_8(MD_REG_PID_MODE, 0)
+
 
 ######## encoders  ##################################
     def reverse_encoder(self, i):
@@ -73,15 +98,21 @@ class md():
             self._write_8(MD_REG_REVERSE, 1)
         else:
             self._write_8(MD_REG_REVERSE, 4)
-        
+
+    def get_encoders(self):
+        self._read_32_array(MD_REG_ENCODER1, self.encoder)
+
+    def get_speeds(self):
+        self._read_16_array(MD_REG_SPEED1, self.speed)
+
     def get_encoder(self,i):
-        if i==0: 
+        if i==0:
             return(self._read_32(MD_REG_ENCODER1))
         else:
             return(self._read_32(MD_REG_ENCODER2))
-            
+
     def get_speed(self,i):
-        if i==0: 
+        if i==0:
             return(self._read_16(MD_REG_SPEED1))
         else:
             return(self._read_16(MD_REG_SPEED2))
@@ -147,3 +178,17 @@ class md():
             return (raw - (1<<32))
         else:
             return raw
+
+
+    def _read_32_array(self, register, result_array):
+        # Read and  saves into result_arrray a sequence of 32-bit little  endian
+        # values  starting from the specified  register address.
+        l=len(result_array)
+        self._i2c.writeto(self._addr, bytes([register]))
+        in_buffer = self._i2c.readfrom(self._addr, 4*l)
+        for i in range(l):
+            raw = (in_buffer[4*i+3] << 24) |(in_buffer[4*i+2] << 16) | (in_buffer[4*i+1] << 8) | in_buffer[4*i]
+            if (raw & (1<<31)): # sign bit is set
+                result_array[i] = (raw - (1<<32))
+            else:
+                result_array[i] = raw

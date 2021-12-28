@@ -4,10 +4,13 @@
 #include "motors.h"
 #include "neopixel.h"
 #include "QuadratureDecoder.h"
+#include "pid.h"
 
 int32_t prev_encoder[]={0,0};
 uint32_t prev_encoder_update=micros(); //time of last update to revious encoder readign, in microseconds
 int32_t enc1_index, enc2_index;
+
+PIDcontroller SpeedController1, SpeedController2;
 
 
 
@@ -20,6 +23,8 @@ void motors_init(){
     prev_encoder[1]=0;
     speed[0]=0;
     speed[1]=0;
+    SpeedController1.reset();
+    SpeedController2.reset();
     //disable drivers
     digitalWrite(PIN_DISABLE, HIGH);
     * motor_status = STATUS_M1_OFF|STATUS_M2_OFF;
@@ -55,7 +60,19 @@ void motors_set_speeds(){
             power2=motor_power[1];
             break;
         case MODE_PID:
-            //FIXME - need to activate PID
+            //set up the PID controllers for left and right motor
+            //each of them will take  as input speed (in ticks/s) and outputs a value between -1..1 - it will be later multiplied by MAX_MOTOR_POWER
+            float Kp= (*motorKp)*0.0000001; //10^7
+            float Ti=(*motorTi)*0.001; //time constant for integral term
+            float Td=(*motorTd)*0.001; //time constant for derivative term
+            float Ilim = (*motorIlim); //integral limit, in ticks
+            SpeedController1.configure(Kp,Kp/Ti,Kp*Td,Ilim); //Ki=Kp/Ti, Kd=Kp*Td
+            SpeedController1.setTarget( (float)motor_power[0]* (*motor_maxspeed)/MAX_MOTOR_POWER); //converting the value on-500...500 scale to ticks/s
+            SpeedController2.configure(Kp,Kp/Ti,Kp*Td,Ilim);
+            SpeedController2.setTarget( (float)motor_power[1]* (*motor_maxspeed)/MAX_MOTOR_POWER); //converting the value on-500...500 scale to ticks/s
+            //set initial power, as 0th approximation
+            power1=motor_power[0];
+            power2=motor_power[1];
             break;
     }
     motors_set_raw(power1, power2);
@@ -83,5 +100,15 @@ void compute_speed(){
     prev_encoder_update=micros();
 }
 void motors_pid_update(){
-    //FIXME
+    if (*pid_mode == MODE_NOPID) return;
+    int16_t power1 = motor_power[0] + (int16_t) (MAX_MOTOR_POWER*SpeedController1.update((float)speed[0]));
+    int16_t power2 = motor_power[1] + (int16_t) (MAX_MOTOR_POWER*SpeedController2.update((float)speed[1]));
+    //Serial.print(speed[0]);Serial.print("     "); Serial.println(powerL);
+    if (power1>MAX_MOTOR_POWER) power1=MAX_MOTOR_POWER;
+    else if (power1<-MAX_MOTOR_POWER) power1=-MAX_MOTOR_POWER;
+
+    if (power2>MAX_MOTOR_POWER) power2=MAX_MOTOR_POWER;
+    else if (power2<-MAX_MOTOR_POWER) power2=-MAX_MOTOR_POWER;
+
+    motors_set_raw(power1, power2);
 }

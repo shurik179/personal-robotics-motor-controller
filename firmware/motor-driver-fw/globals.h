@@ -7,7 +7,7 @@
 
 
 #define FW_VERSION_MAJOR 0
-#define FW_VERSION_MINOR 9
+#define FW_VERSION_MINOR 95
 
 #define DEFAULT_I2C_ADDRESS 0x54
 
@@ -60,7 +60,7 @@ extern  volatile byte * REGBANK;
 #define REG_POWER1              12
 #define REG_POWER2              14
 #define REG_REVERSE             16
-//#define REG_ENC_RESET           16
+//#define REG_ENC_RESET           17
 //Read-only registers
 #define REG_FW_VERSION          24
 #define REG_WHO_AM_I            26
