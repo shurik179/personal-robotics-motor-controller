@@ -62,10 +62,10 @@ void motors_set_speeds(){
         case MODE_PID:
             //set up the PID controllers for left and right motor
             //each of them will take  as input speed (in ticks/s) and outputs a value between -1..1 - it will be later multiplied by MAX_MOTOR_POWER
-            float Kp= (*motorKp)*0.0000001; //10^7
-            float Ti=(*motorTi)*0.001; //time constant for integral term
-            float Td=(*motorTd)*0.001; //time constant for derivative term
-            float Ilim = (*motorIlim); //integral limit, in ticks
+            float Kp= (*motor_Kp)*0.0000001; //10^7
+            float Ti=(*motor_Ti)*0.001; //time constant for integral term
+            float Td=(*motor_Td)*0.001; //time constant for derivative term
+            float Ilim = (*motor_Ilim); //integral limit, in ticks
             SpeedController1.configure(Kp,Kp/Ti,Kp*Td,Ilim); //Ki=Kp/Ti, Kd=Kp*Td
             SpeedController1.setTarget( (float)motor_power[0]* (*motor_maxspeed)/MAX_MOTOR_POWER); //converting the value on-500...500 scale to ticks/s
             SpeedController2.configure(Kp,Kp/Ti,Kp*Td,Ilim);

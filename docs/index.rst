@@ -35,3 +35,12 @@ Key properties of this controller are as follows:
   using I2C interface. Micropython library is available
 
 All design files and software are available from the project |github| under open source license.
+
+
+.. toctree::
+    :caption: Table of Contents
+    :maxdepth: 1
+
+    specs
+    firmware
+    mp_library
