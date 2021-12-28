@@ -20,7 +20,7 @@ volatile uint16_t * motor_Td         =(uint16_t *) &REGBANK[REG_PID_TD];
 volatile uint16_t * motor_Ilim       =(uint16_t *) &REGBANK[REG_PID_ILIM];
 volatile uint8_t  * pid_mode         =(uint8_t *)  &REGBANK[REG_PID_MODE];
 volatile int16_t  * motor_power      =(int16_t *)  &REGBANK[REG_POWER1]; //2-element array
-volatile uint8_t  * reverse_config   =(uint8_t *)  &REGBANK[REG_REVERSE]; 
+volatile uint8_t  * reverse_config   =(uint8_t *)  &REGBANK[REG_REVERSE];
 //volatile byte     * encoder_reset    = &REGBANK[REG_ENC_RESET];
 
 //Read-only registers
@@ -45,4 +45,8 @@ void globals_init(){
     *motor_enable = 0;
     *motor_status = STATUS_M1_OFF|STATUS_M2_OFF;
     *pid_mode     = MODE_NOPID;
+    *fw_version[0]=FW_VERSION_MINOR;
+    *fw_version[1]=FW_VERSION_MAJOR;
+
+
 }

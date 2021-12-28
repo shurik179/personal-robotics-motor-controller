@@ -42,18 +42,41 @@ Initialization and basic info
     Creates and initializes motor driver object. If connection can't be established
     (e.g. because the driver is not connected or malfunctions), an exception will be raised.
 
-.. function:: status()
 
-.. function:: enable()
+.. function:: fw_version()
+
+   Returns firmware version as a string, in format `major.minor`, e.g. `1.99`
 
 .. function:: disable()
 
-.. function:: fw_version()
+   Disables both motors.
+
+
+.. function:: enable()
+
+   Re-enables both motors. (Motors are initially enabled.)
+
+
+.. function:: motor_status(index)
+
+    Returns status of motor with given index (index=0 for MOTOR1, index=1 for MOTOR2).
+    If motor is enabled, status is 0; if it is disabled, status is 1.
+    Note that motor can be disabled either because the user disabled it using ```disable```
+    function above, or because one of the protection features (overcurrent,
+    overtemperature, short circuit) was triggered.
+
+    Overtemperature and other protection features are latching: if the
+    protection was tirggered, the motor stays disabled even if the
+    temperature/voltage is now normal. To re-enable the motors, use `enable` command above.
+
 
 Basic motor control
 -------------------
 
-.. function:: set_motor(motor, power)
+.. function:: set_motor(index, power)
+
+   Sets the power for given motor (index=0 for MOTOR1, and index = 1 for MOTOR2).
+   The power ranges between -1000 (full speed backwards) to 1000 (full speed forwards)
 
 .. function:: set_motors(power1, power2 = None)
 

@@ -3,6 +3,7 @@ import machine
 
 MD_DEFAULT_I2C_ADDRESS = 0x54
 
+MD_MOTOR_MAX_SPEED = 1000
 
 MD_REG_ENABLE          = const(0)
 MD_REG_PID_MODE        = const(1)
@@ -56,24 +57,23 @@ class md():
     def fw_version(self):
         minor = self._read_8(MD_REG_FW_VERSION)
         major = self._read_8(MD_REG_FW_VERSION + 1)
-        version="{}.{}"
-        return(version.format(major,minor))
+        return("{}.{}".format(major,minor))
 
 
 ######## MOTOR CONTROL, NO PID ##################################
 
     def set_motor(self, motor, power):
         if (motor == 0):
-            self._write_16(MD_REG_POWER1, power)
+            self._write_16(MD_REG_POWER1, round(power))
         elif (motor == 1):
-            self._write_16(MD_REG_POWER2, power)
+            self._write_16(MD_REG_POWER2, round(power))
         else:
             raise RuntimeError('Invalid motor number')
 
     def set_motors(self,  power1, power2=None):
         if power2 is None:
             power2 = power1
-        self._write_16_array(MD_REG_POWER1, [power1, power2])
+        self._write_16_array(MD_REG_POWER1, [round(power1), round(power2)])
 ######## MOTOR CONTROL WITH PID ##################################
 
     def configure_pid(self, maxspeed, Kp = None, Ti = None, Td = None, Ilim = None):
