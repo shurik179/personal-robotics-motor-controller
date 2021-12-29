@@ -40,7 +40,7 @@ Initialization and basic info
 
     Creates and initializes motor driver object. If connection can't be established
     (e.g. because the driver is not connected or malfunctions), an exception will be raised.
-    Optional paramter `address` is the I2C address. If omitted, default value of
+    Optional parameter `address` is the I2C address. If omitted, default value of
     `MD_DEFAULT_I2C_ADDRESS=0x54` is used.
 
 
@@ -168,18 +168,43 @@ guide.
 
 .. function:: configure_pid(maxspeed, Kp, Ti, Td, Ilim)
 
-
+   Sets the PID coefficients for both motors. Note that these coefficients are
+   only used if you enable PID using `pid_on()` command below.
 
 .. function:: configure_pid(maxspeed)
 
+   Sets default PID coefficients, based on motor maximal speed (in ticks/s).
+   The default values are as follows:
+
+.. code-block:: python
+
+    Kp = 0.8/maxspeed
+    Ti = 0.3
+    Td = 0.03
+    Ilim = 1000
+
+These values are somewhat conservative: while they are unlikely to cause
+oscillations, it may take some time for the motor speed to stabilize. You may
+experiment with these values to improve performance of the PID loop.
+
+
+
+
 .. function:: pid_on()
 
-   Enables PID for both motors. This assumes that PID has been configured previously.
+   Enables PID for both motors. This assumes that PID has been configured
+   previously using `configure_pid()` command.
 
    After enabling PID, any power given to the motors using  `set_motor` commands
    will be actively maintained using PID algorithm.
 
 
+
+
 .. function:: pid_off()
 
    Disables PID for both motors.
+
+
+It is suggested that you only use the commands above when the motors are stopped.
+Changing PID settings while the motors are in motion can lead to unexpected results.
