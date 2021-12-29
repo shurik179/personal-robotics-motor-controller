@@ -51,8 +51,12 @@ class md():
     def disable(self):
         self._write_8(MD_REG_ENABLE, 0)
 
-    def status(self):
-        return self._read_8(MD_REG_STATUS)
+    def status(self,index):
+        raw_status=self._read_8(MD_REG_STATUS)
+        if index == 0:
+            return (raw_status & 1)
+        if index == 1:
+            return (raw_status & (1<<1))
 
     def fw_version(self):
         minor = self._read_8(MD_REG_FW_VERSION)

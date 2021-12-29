@@ -45,8 +45,8 @@ void globals_init(){
     *motor_enable = 0;
     *motor_status = STATUS_M1_OFF|STATUS_M2_OFF;
     *pid_mode     = MODE_NOPID;
-    *fw_version[0]=FW_VERSION_MINOR;
-    *fw_version[1]=FW_VERSION_MAJOR;
+    fw_version[0]=FW_VERSION_MINOR;
+    fw_version[1]=FW_VERSION_MAJOR;
 
 
 }
