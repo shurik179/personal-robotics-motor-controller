@@ -34,7 +34,7 @@ The following table lists all controller I2C registers.
    10-11,R/W,REG_PID_ILIM,uint16,Ilim
    12-13,R/W,REG_POWER1,int16,"Left motor power, -1000...1000. Used both in PID on and PID off modes, see details in "
    14-15,R/W,REG_POWER2,int16,"Right motor power, -1000...1000"
-   16,R,REG_REVERSE,byte,Bit0: should readings of encoder 0 be reversed? Bit2: same for encoder2
+   16,R/W,REG_REVERSE,byte,Bit0: should readings of encoder 0 be reversed? Bit2: same for encoder2
    24,R,REG_FW_VERSION,uint8,Firmware version - minor
    25,R,,uint8,Firmware version - major
    26,R,REG_WHO_AM_I,uint8,0x54 (used for testing connection)
