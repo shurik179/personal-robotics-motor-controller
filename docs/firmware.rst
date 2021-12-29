@@ -3,11 +3,28 @@
 Firmware and register map
 **************************
 
+Firmware
+========
+
+The firmware for the motor controller is written in Arduino IDE using
+Earl Philhower's `RP2040 core <https://github.com/earlephilhower/arduino-pico>`__.
+
+If you want to modify it, you can find source files in `firmware` folder in |github|.
+
+
+I2C communication
+=================
+
+The controller is controlled via I2C bus. It supports speeds up to 400kHz.
+Default I2C address is `0x54`, but it can be changed by closing the solder
+bridge jumpers on the bottom of the board (see `specs`).
+
+The following table lists all controller I2C registers.
+
 .. csv-table:: Register map
    :widths: 10 10 30 10 50
-   :header: "Header 1", "Header 2", "Header 3", "Header 4", "header5"
+   :header:   "register(s)","R/W","Name","data type","description"
 
-   register(s),R/W,Name,data type,description
    0,R/W,REG_ENABLE,byte,"write 1 to enable motor drivers, 0 to disable"
    1,R/W,REG_PID_MODE,byte,"0: normal control (incl. brake), PID off; 1: PID on (individual motors)"
    2-3,R/W,REG_MAX_SPEED,uint16,Max motor speed in encoder ticks/s. Required for PID
@@ -17,7 +34,7 @@ Firmware and register map
    10-11,R/W,REG_PID_ILIM,uint16,Ilim
    12-13,R/W,REG_POWER1,int16,"Left motor power, -1000�1000. Used both in PID on and PID off modes, see details in "
    14-15,R/W,REG_POWER2,int16,"Right motor power, -1000�1000"
-   16,,REG_REVERSE,byte,Bit0: should readings of encoder 0 be reversed? Bit2: same for encoder2
+   16,R,REG_REVERSE,byte,Bit0: should readings of encoder 0 be reversed? Bit2: same for encoder2
    24,R,REG_FW_VERSION,uint8,Firmware version - minor
    25,R,,uint8,Firmware version - major
    26,R,REG_WHO_AM_I,uint8,0x54 (used for testing connection)
