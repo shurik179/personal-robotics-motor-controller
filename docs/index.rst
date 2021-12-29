@@ -7,8 +7,8 @@ Motor controller
 
 This guide contains documentation for a dual channel driver for DC motors.
 This driver was created by group of robotics enthusiasts from Personal Robotics
-discord server, who needed a dual channel motor driver supportign closed loop motor control
-but were not ready to pay $70 and more fo existing commercial realizations.
+discord server, who needed a dual channel motor driver supporting closed loop motor control
+but were not ready to pay $70 and more for existing commercial realizations.
 
 Key properties of this controller are as follows:
 

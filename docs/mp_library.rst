@@ -7,7 +7,7 @@ This chapter documents included Micropython library.
 Installation
 ============
 To install the library, download the latest version of `motor_driver.py` file
-from |github| and copy it to the root directory of your board.
+from `mp_library` folder in |github| and copy it to the root directory of your board.
 
 
 
