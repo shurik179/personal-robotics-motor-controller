@@ -24,7 +24,6 @@ Below is the basic example of Micropython code using the library.
    i2c = I2C(0, scl=Pin(9), sda=Pin(8), freq=100000)
    driver = motor_driver.md(i2c)
 
-   print(driver.status())
    driver.set_motors(500,500) #motor speed range: -1000...1000
    while True:
       print(driver.get_encoder(0))
@@ -41,6 +40,8 @@ Initialization and basic info
 
     Creates and initializes motor driver object. If connection can't be established
     (e.g. because the driver is not connected or malfunctions), an exception will be raised.
+    Optional paramter `address` is the I2C address. If omitted, default value of
+    `MD_DEFAULT_I2C_ADDRESS=0x54` is used.
 
 
 .. function:: fw_version()
@@ -129,7 +130,45 @@ Encoders and speed
 PID configuration
 -----------------
 
+Motor driver firmware provides an option of closed loop motor control. In this mode,
+the controller tries to keep the speed of each motor (as measured using encoders)
+as close as possible to the desired speed, using industry-standard PID
+(proportional-integral-derivative) algorithm.
+
+The motor power is determined by the standard formula of PID algorithm:
+
+.. math::
+   P=P_0+ K_p e+\frac{K_p}{T_i}\int e\, dt +K_p T_d \frac{d}{dt} e
+
+where:
+
+:math:`P` is motor power (ranging from -1.0 to 1.0)
+
+:math:`P_0=v_{desired}/v_{max}` is the zero-level approximation; here
+:math:`v_{desired}` is the requested speed (in ticks/s) and :math:`v_{max}` is the maximal
+possible motor speed, which is determined by motor's no-load RPM.
+
+:math:`e=v_{desired}-v_{actual}` is the error, i.e. the  difference of desired and actual motor
+speeds (measured in encoder ticks/sec)
+
+:math:`\int e dt` and :math:`\frac{d}{dt}e` are the integral and derivative
+of the error, measured in encoder tics and tics/:math:`sec^2` respectively
+
+:math:`K_p, T_i, T_d` are the PID coefficients.
+
+
+The behavior of the PID algorithm is determined by these coefficients; for
+example, if the coefficient :math:`K_p` is too small, it will take the motor a
+long time to stabilize to the desired speed; if the coefficient :math:`K_p` is
+too large, you might get oscillations. Choosing the correct coefficients
+requires significant experience and is certainly outside the scope of this user
+guide.
+
+
+
 .. function:: configure_pid(maxspeed, Kp, Ti, Td, Ilim)
+
+
 
 .. function:: configure_pid(maxspeed)
 
@@ -138,7 +177,7 @@ PID configuration
    Enables PID for both motors. This assumes that PID has been configured previously.
 
    After enabling PID, any power given to the motors using  `set_motor` commands
-   will be actively maintained using PID algorithm. 
+   will be actively maintained using PID algorithm.
 
 
 .. function:: pid_off()
