@@ -3,7 +3,7 @@
 Specifications
 **************************
 
-.. figure:: images/front_view.jpg
+.. figure:: images/top_view.jpg
     :alt: Top view
     :width: 80%
 

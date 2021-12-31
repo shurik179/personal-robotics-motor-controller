@@ -7,7 +7,7 @@ Motor controller
 
 This guide contains documentation for a dual channel controller for DC motors.
 This controller was created by group of robotics enthusiasts from Personal Robotics
-discord server, who needed mid-power a dual channel motor controller supporting closed loop motor control
+discord server, who needed a mid-power dual channel motor controller supporting closed loop motor control
 but were not ready to pay $70 and more for existing commercial realizations.
 
 Key features of this controller are as follows:
