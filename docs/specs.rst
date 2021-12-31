@@ -3,9 +3,15 @@
 Specifications
 **************************
 
+.. figure:: images/front_view.jpg
+    :alt: Top view
+    :width: 80%
+
+
+
 General
 =======
-The controller can be used to control two DC brushed motors (5-18V) with quadrature encoders.
+The controller can be used to control two brushed DC motors (5-18V) with quadrature encoders.
 It provides position and speed reading (if encoders are present) and closed-loop
 mode in which it keeps motor speed constant using encoder feedback and PID algorithm.
 
@@ -27,6 +33,10 @@ Thus, by using different combinations of the jumpers, one can get any address be
 
 
 
+.. figure:: images/bottom_view.jpg
+    :alt: Bottom view
+    :width: 80%
+
 
 
 Power supply
@@ -44,7 +54,7 @@ Electronics
 Key components of the controller are two `TLE9201SG <https://www.infineon.com/cms/en/product/power/motor-control-ics/brushed-dc-motor-driver-ics/integrated-full-bridge-driver/tle9201sg/>`__ motor controller
 ICs by Infineon; please read the IC  datasheet for details of their operation.
 
-The board also contains an MCU, namely `Castaway RP2040 <https://www.tindie.com/products/oakdevtech/cast-away-rp2040-a-castellated-rp2040-dev-board/>`__ board featuring
+The board also contains an MCU,  `Castaway RP2040 <https://www.tindie.com/products/oakdevtech/cast-away-rp2040-a-castellated-rp2040-dev-board/>`__ board featuring
 Raspberri Pi RP2040 chip. This MCU is preloaded with firmware controlling the
 motor driver ICs.
 

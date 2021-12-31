@@ -1,16 +1,16 @@
 ################
 Motor controller
 ################
-.. figure:: images/main_photo.jpg
+.. figure:: images/front_view.jpg
     :alt: Motor driver
     :width: 80%
 
-This guide contains documentation for a dual channel driver for DC motors.
-This driver was created by group of robotics enthusiasts from Personal Robotics
-discord server, who needed a dual channel motor driver supporting closed loop motor control
+This guide contains documentation for a dual channel controller for DC motors.
+This controller was created by group of robotics enthusiasts from Personal Robotics
+discord server, who needed mid-power a dual channel motor controller supporting closed loop motor control
 but were not ready to pay $70 and more for existing commercial realizations.
 
-Key properties of this controller are as follows:
+Key features of this controller are as follows:
 
 * support for 2 brushed DC motors
 
@@ -34,7 +34,8 @@ Key properties of this controller are as follows:
 * Controlled by a host microcontroller  or single board computer such as Raspberry Pi
   using I2C interface. Micropython library is available
 
-All design files and software are available from the project |github| under open source license.
+All design files and software are available from the project |github| under open
+source license.
 
 
 .. toctree::
