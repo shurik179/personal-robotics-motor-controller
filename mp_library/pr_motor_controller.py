@@ -27,7 +27,7 @@ MD_REG_SPEED1          = const(36)
 MD_REG_SPEED2          = const(38)
 
 
-class md():
+class controller():
     def __init__(self, i2c, address=MD_DEFAULT_I2C_ADDRESS):
         self._i2c = i2c
         self._addr = address
