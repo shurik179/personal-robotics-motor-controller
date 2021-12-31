@@ -1,4 +1,4 @@
-# Motor controller
+# Personal Robotics Motor Controller
 
 **Warning: this project is currently work in progress and is not ready for public use.**
 
@@ -22,3 +22,5 @@ features of this controller are listed below:
 * I2C interface for control by a microcontroller or single board computer
 
 This repository contains both board design files (as KiCad 6.0RC1 project) and firmware (written using Arduino IDE with Earl Philhower arduino-pico core for RP2040).
+
+Detailed project information is available http://motor-controller.rtfd.io/ 
