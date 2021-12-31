@@ -13,8 +13,20 @@ The motor controller is controlled by a host MCU (Arduino or similar boards) or
 single board computer such as Raspberry Pi using I2C interface (3.3V, up to
 400kHz speed).
 
-I2C address of the controller can be changed by closing solder bridge jumpers
-allowing one to use up to 4 such motor controllers on the same bus.
+I2C address
+===========
+By default, the controller uses I2C address `0x54`.
+It can be changed by closing solder bridge jumpers on the bottom side  of the board:
+
+* closing jumper labeled `Bit0` adds 1 to the address
+
+* closing jumper labeled `Bit1` adds 2 to the address
+
+Thus, by using different combinations of the jumpers, one can get any address between
+`0x54` and `0x57`, allowing one to use up to 4 such motor controllers on the same bus.
+
+
+
 
 
 Power supply
@@ -54,7 +66,7 @@ The board provides several options for connecting motors, encoders, and main pow
 
 * I2C connectors: the board provides two I2C Qwiic/Stemma QT I2C connectors.
   This makes it possible to daisy-chain connectors.
-  
+
 
 
 
