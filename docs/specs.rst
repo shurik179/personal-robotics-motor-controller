@@ -69,7 +69,16 @@ The board provides several options for connecting motors, encoders, and main pow
   `25mm motors <https://www.pololu.com/product/4865>`__ from Pololu - may use different pin order.
 
 * Encoder connections: a 4-pin JST PH connector, using the following pin order:
-  Pin1: GND; Pin 2: 3.3V; Pin 3: Channel A; Pin 4: Channel B. (This matches the pin order of
+
+  - Pin1: GND;
+
+  - Pin 2: 3.3V;
+   
+  - Pin 3: Channel A;
+
+  - Pin 4: Channel B.
+
+  (This matches the pin order of
   `REV control hub <https://www.revrobotics.com/rev-31-1595/>`__ used in First Tech Challenge robotics competitions.)
 
 * Main power: 5mm pitch screw terminals.
@@ -104,7 +113,7 @@ Protection features
 In addition to current limiting listed above, the motor drivers also provide
 variety of other protection features:
 
- * undervoltage
+* undervoltage
 
 * overtemperature
 
