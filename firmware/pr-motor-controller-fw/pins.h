@@ -1,10 +1,10 @@
-#ifndef _MD_PINS_H
-#define _MD_PINS_H
+#ifndef _PRMC_PINS_H
+#define _PRMC_PINS_H
 
 
 //pins
-#define PIN_MD_SDA       0
-#define PIN_MD_SCL       1
+#define PIN_PRMC_SDA       0
+#define PIN_PRMC_SCL       1
 #define PIN_MOTOR1_DIR   27
 #define PIN_MOTOR1_PWM   28
 #define PIN_MOTOR2_DIR   2

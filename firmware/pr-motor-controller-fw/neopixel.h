@@ -1,5 +1,5 @@
-#ifndef _MD_NEOPIXEL_H
-#define _MD_NEOPIXEL_H
+#ifndef _PRMC_NEOPIXEL_H
+#define _PRMC_NEOPIXEL_H
 
 void neopixel_init();
 

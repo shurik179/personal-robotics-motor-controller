@@ -1,5 +1,5 @@
-#ifndef _MD_I2C_H
-#define _MD_I2C_H
+#ifndef _PRMC_I2C_H
+#define _PRMC_I2C_H
 #include <Arduino.h>
 #define  MAX_TRANSMIT_SIZE 8 //maximal number of bytes the master can request
 

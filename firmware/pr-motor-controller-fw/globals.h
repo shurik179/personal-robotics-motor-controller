@@ -1,13 +1,13 @@
-#ifndef _MD_GLOBAL_H
-#define _MD_GLOBAL_H
+#ifndef _PRMC_GLOBAL_H
+#define _PRMC_GLOBAL_H
 
 
 
 /* various global variables, defines, etc */
 
 
-#define FW_VERSION_MAJOR 0
-#define FW_VERSION_MINOR 95
+#define FW_VERSION_MAJOR 1
+#define FW_VERSION_MINOR 0
 
 #define DEFAULT_I2C_ADDRESS 0x54
 

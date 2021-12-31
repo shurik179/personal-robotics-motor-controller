@@ -14,8 +14,8 @@ void i2c_begin(){
     if (digitalRead(PIN_JMP1) == LOW ) address +=1;
     if (digitalRead(PIN_JMP2) == LOW ) address +=2;
     //just in case, set SDA/SCL pins
-    Wire.setSDA(PIN_MD_SDA);
-    Wire.setSCL(PIN_MD_SCL);
+    Wire.setSDA(PIN_PRMC_SDA);
+    Wire.setSCL(PIN_PRMC_SCL);
     Wire.begin(address);
     Wire.onRequest(i2c_request_event);
     Wire.onReceive(i2c_receive_event);

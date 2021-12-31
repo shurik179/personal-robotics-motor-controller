@@ -1,5 +1,5 @@
-#ifndef _MD_MOTORS_H
-#define _MD_MOTORS_H
+#ifndef _PRMC_MOTORS_H
+#define _PRMC_MOTORS_H
 #include "globals.h"
 
 #define MOTOR_FREQ 10000 
