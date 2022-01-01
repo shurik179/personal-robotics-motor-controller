@@ -36,4 +36,4 @@ This project was created in 2021  by:
 
 * shurik179 (https://github.com/shurik179)
 
-It is releases under Apache license; see file LICENSE for details.
+It is released under Apache license; see file LICENSE for details.
