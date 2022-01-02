@@ -1,14 +1,17 @@
 from machine import Pin, I2C
 from time import sleep
 import pr_motor_controller
-i2c = I2C(0, scl=Pin(9), sda=Pin(8), freq=100000)
+#For Pico
+#i2c = I2C(0, scl=Pin(9), sda=Pin(8), freq=100000)
+#FOR RP2040 ItsyBitsy
+i2c = I2C(1, scl=Pin(3), sda=Pin(2), freq=100000)
 
 # just for testing
 
 driver = pr_motor_controller.controller(i2c)
 
 print("Motor controller initialized.")
-print("Firmware version: " + driver.fw_version()))
+print("Firmware version: " + driver.fw_version())
 # driver.reverse_encoder(0)
 driver.set_motors(500) #set speed of both motors to 50%
 while True:
