@@ -1,7 +1,7 @@
 {
   "board": {
     "active_layer": 0,
-    "active_layer_preset": "",
+    "active_layer_preset": "All Copper Layers",
     "auto_track_width": true,
     "hidden_nets": [],
     "high_contrast_mode": 0,
@@ -14,7 +14,7 @@
     },
     "ratsnest_display_mode": 0,
     "selection_filter": {
-      "dimensions": true,
+      "dimensions": false,
       "footprints": false,
       "graphics": true,
       "keepouts": false,
@@ -57,11 +57,12 @@
       29,
       30,
       32,
+      33,
       34,
       35,
       36
     ],
-    "visible_layers": "7fc3dff_80000007",
+    "visible_layers": "0001000_ffffffff",
     "zone_display_mode": 0
   },
   "meta": {
