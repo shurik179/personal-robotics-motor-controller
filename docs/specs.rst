@@ -11,25 +11,41 @@ Specifications
 
 General
 =======
-The controller can be used to control two brushed DC motors (5-18V) with quadrature encoders.
+The Personal Robotics  Motor Controller (which fronm now on will be abbreviated to PRMC)
+ can be used to control two brushed DC motors (5-18V) with quadrature encoders.
 It provides position and speed reading (if encoders are present) and closed-loop
 mode in which it keeps motor speed constant using encoder feedback and PID algorithm.
 
-The motor controller is controlled by a host MCU (Arduino or similar boards) or
-single board computer such as Raspberry Pi using I2C interface (3.3V, up to
-400kHz speed).
 
-I2C address
-===========
-By default, the controller uses I2C address `0x54`.
+
+I2C interface
+=============
+PRMC is controlled by a host MCU (Arduino or similar boards) or
+single board computer such as Raspberry Pi using I2C interface.
+It uses 3.3v I2C bus, at up to 400 kHz speed. There are two identical
+Qwiic/Stemma QT connectors allowing one to daisy-chain several controllers.
+
+PRMC includes 10k pullups to 3.3v  on SCL and SDA lines; you might want to add
+additional pullups on the i2c master.
+
+**Important**: the 3.3v pin of the Qwiic connectors is unconnected. Instead,
+PRMC uses its own voltage regulator to provide power to the built-in electronics.
+This also means that when daisy-chaining, it will not provide power to other I2C devices.
+
+
+
+By default, the controller uses I2C address `0x54` (or 84 in decimal form).
 It can be changed by closing solder bridge jumpers on the bottom side  of the board:
 
 * closing jumper labeled `Bit0` adds 1 to the address
 
 * closing jumper labeled `Bit1` adds 2 to the address
 
+* closing jumper labeled `Bit2` adds 4 to the address
+
 Thus, by using different combinations of the jumpers, one can get any address between
-`0x54` and `0x57`, allowing one to use up to 4 such motor controllers on the same bus.
+`0x54` (decimal 84) and `0x5A` (decimal 91), allowing one to use up to 8 such
+motor controllers on the same bus.
 
 
 
@@ -41,22 +57,27 @@ Thus, by using different combinations of the jumpers, one can get any address be
 
 Power supply
 ============
-The controller accepts motor power supply of **5--18V**. The power supply connection has
-reverse polarity protection preventing damage if the power leads are switched.
-The board also contains a power indicator LED.
+PRMC is intended for use with  motor power supply of **5--18V**. Absolute maximum
+voltage for power supply is 24V; voltages above that will damage PRMC.
 
-The on-board electronics  is powered by 3.3V from Qwiic/Stemma QT I2C connectors.
-Thus, the board can not operate without connecting the I2C bus.
+
+The power supply connection has
+reverse polarity protection preventing damage if the power leads are switched.
+It also has limited  ESD protection to defend it from spikes caused by electrostatic discharge.
+
+PRMC contains a voltage regulator (combination of buck converter and an LDO) providing
+3.3v power to on-board electronics from the motor power supply.
+It also contains a power indicator LED.
+
 
 
 Electronics
 ===========
-Key components of the controller are two `TLE9201SG <https://www.infineon.com/cms/en/product/power/motor-control-ics/brushed-dc-motor-driver-ics/integrated-full-bridge-driver/tle9201sg/>`__ motor controller
+Key components of PRMC are two `TLE9201SG <https://www.infineon.com/cms/en/product/power/motor-control-ics/brushed-dc-motor-driver-ics/integrated-full-bridge-driver/tle9201sg/>`__ motor controller
 ICs by Infineon; please read the IC  datasheet for details of their operation.
 
-The board also contains an MCU,  `Castaway RP2040 <https://www.tindie.com/products/oakdevtech/cast-away-rp2040-a-castellated-rp2040-dev-board/>`__ board featuring
-Raspberri Pi RP2040 chip. This MCU is preloaded with firmware controlling the
-motor driver ICs.
+PRMC also contains an RP2040 MCU by Raspberry Pi. It is preloaded with firmware
+providing I2C interface, reading quadrautre encoders, and providing closed loop motor control.
 
 
 Connections
@@ -73,7 +94,7 @@ The board provides several options for connecting motors, encoders, and main pow
   - Pin1: GND;
 
   - Pin 2: 3.3V;
-   
+
   - Pin 3: Channel A;
 
   - Pin 4: Channel B.
@@ -81,7 +102,7 @@ The board provides several options for connecting motors, encoders, and main pow
   (This matches the pin order of
   `REV control hub <https://www.revrobotics.com/rev-31-1595/>`__ used in First Tech Challenge robotics competitions.)
 
-* Main power: 5mm pitch screw terminals.
+* Main power: 5mm pitch screw terminal or XT30 male connector
 
 * I2C connectors: the board provides two I2C Qwiic/Stemma QT I2C connectors.
   This makes it possible to daisy-chain connectors.
@@ -127,7 +148,10 @@ the output has been disabled and if desired, re-enable it.
 
 Dimensions
 ===========
-The board dimensions are 50x60mm; height is about 12mm (not including connected cables).
+The board dimensions are 50x60mm. Board height depends on the chosen connectors;
+with screw terminals, height is about 14mm. If you use JST VH for motors or XT30
+connector for power, you will need at least 22mm clearance above the PCB for the
+connector abd cables.
 
 There are four mounting holes for M3 or smaller screws; their position is
 shown in the diagram below.

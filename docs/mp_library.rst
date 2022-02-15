@@ -38,6 +38,9 @@ Below is the basic example of Micropython code using the library.
 Full documentation
 ==================
 
+In all the functions which use `motor` as an argument, value of 0 corresponds to
+Motor1, and value of 1, to Motor2.
+
 Initialization and basic info
 -----------------------------
 
@@ -53,19 +56,19 @@ Initialization and basic info
 
    Returns firmware version as a string, in format `major.minor`, e.g. `1.99`
 
-.. function:: disable()
+.. function:: disable(motor)
 
-   Disables both motors.
-
-
-.. function:: enable()
-
-   Re-enables both motors. (Motors are initially enabled.)
+   Disable motor.(Both motors are initially enabled.)
 
 
-.. function:: motor_status(index)
 
-    Returns status of motor with given index (index=0 for MOTOR1, index=1 for MOTOR2).
+.. function:: enable(motor)
+
+   Re-enable motor.
+
+.. function:: motor_status(motor)
+
+    Returns the motor status.
     If motor is enabled, status is 0; if it is disabled, status is 1.
     Note that motor can be disabled either because the user disabled it using `disable`
     function above, or because one of the protection features (overcurrent,
@@ -79,9 +82,9 @@ Initialization and basic info
 Basic motor control
 -------------------
 
-.. function:: set_motor(index, power)
+.. function:: set_motor(motor, power)
 
-   Sets the power for given motor (index=0 for MOTOR1, and index = 1 for MOTOR2).
+   Sets the power for given motor.
    The power ranges between -1000 (full speed backwards) to 1000 (full speed forwards)
 
 .. function:: set_motors(power1, power2 = None)
@@ -95,7 +98,7 @@ Basic motor control
 Encoders and speed
 ------------------
 
-.. function:: get_encoder(index)
+.. function:: get_encoder(motor)
 
    Returns current encoder reading (ticks) for given motor. If encoder is absent or
    disconnected, returns 0.
@@ -103,7 +106,7 @@ Encoders and speed
    When counting ticks, both rising and falling edge is counted, for each of 2 channels.
    Thus, we get 4 ticks per period.
 
-.. function:: get_speed(index)
+.. function:: get_speed(motor)
 
    Returns current speed reading for given motor, in ticks/sec.
 
@@ -124,7 +127,7 @@ Encoders and speed
     can be accessed using properties `controller.speed[0]` and `controller.speed[1]`.
     As before, advantage of this method is that both speeds are read at the same moment of time.
 
-.. function:: reverse_encoder(index)
+.. function:: reverse_encoder(motor)
 
    After calling this function, all future readings of this encoder will be
    reversed (multiplied by -1). This is convenient if your encoder and motor are wired so that

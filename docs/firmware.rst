@@ -25,7 +25,7 @@ The following table lists all controller I2C registers.
    :widths: 10 10 30 10 50
    :header:   "register(s)","R/W","Name","data type","description"
 
-   0,R/W,REG_ENABLE,byte,"write 1 to enable motor drivers, 0 to disable"
+   0,R/W,REG_ENABLE,byte,"Enable/diable motors. Bit0 controls motor1 (1=enable, 0=disable); bit1 controls motor2""
    1,R/W,REG_PID_MODE,byte,"0: normal control (incl. brake), PID off; 1: PID on (individual motors)"
    2-3,R/W,REG_MAX_SPEED,uint16,Max motor speed in encoder ticks/s. Required for PID
    4-5,R/W,REG_PID_KP,uint16,Kp*10^7
