@@ -19,17 +19,26 @@ void neopixel_init() {
     ws2812_program_init(neopixel_pio, neopixel_sm, neopixel_offset,PIN_NEOPIXEL, 800000, IS_RGBW);
 }
 
-void neopixel_set_color(uint32_t pixel_grb) {
-    pio_sm_put_blocking(neopixel_pio, 0, pixel_grb << 8u);
+void neopixel_set_colors(uint32_t pixel1,uint32_t pixel2) {
+    pio_sm_put_blocking(neopixel_pio, 0, pixel1 << 8u);
+    pio_sm_put_blocking(neopixel_pio, 0, pixel2 << 8u);
 }
 
 void neopixel_update(){
-    uint32_t color;
-    if (*motor_status == STATUS_ON) {
-        color = GREEN;
-    } else {
-        color = BLUE;
+    uint32_t color1, color2;
+    if ( ! have_i2c) {
+        neopixel_set_colors(BLUE, BLUE);
+        return;
     }
-    
-    neopixel_set_color(color);
+    color1=GREEN;
+    color2=GREEN;
+    if (*motor_status &  STATUS_M1_OFF) {
+        color1 = RED;
+    }
+    if (*motor_status &  STATUS_M2_OFF) {
+        color2 = RED;
+    }
+
+
+    neopixel_set_colors(color1,color2);
 }

@@ -1,11 +1,11 @@
-%TF.GenerationSoftware,KiCad,Pcbnew,(6.0.0-rc1-48-g8f87638de5)*%
-%TF.CreationDate,2021-11-22T15:04:28-05:00*%
-%TF.ProjectId,motor_driver2,6d6f746f-725f-4647-9269-766572322e6b,rev?*%
+%TF.GenerationSoftware,KiCad,Pcbnew,(6.0.1)*%
+%TF.CreationDate,2022-02-12T08:58:57-05:00*%
+%TF.ProjectId,motor-driver,6d6f746f-722d-4647-9269-7665722e6b69,rev?*%
 %TF.SameCoordinates,Original*%
 %TF.FileFunction,Profile,NP*%
 %FSLAX46Y46*%
 G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
-G04 Created by KiCad (PCBNEW (6.0.0-rc1-48-g8f87638de5)) date 2021-11-22 15:04:28*
+G04 Created by KiCad (PCBNEW (6.0.1)) date 2022-02-12 08:58:57*
 %MOMM*%
 %LPD*%
 G01*

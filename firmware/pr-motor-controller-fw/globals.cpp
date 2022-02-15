@@ -35,7 +35,7 @@ volatile int32_t *  encoder_raw = new int32_t[2];     //raw readigns from decode
 volatile bool flag_enable=false;
 volatile bool flag_motor_power=false;
 
-
+volatile bool have_i2c = false;
 
 
 

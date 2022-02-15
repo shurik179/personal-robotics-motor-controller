@@ -36,19 +36,28 @@ void motors_init(){
     enc2_index = decoder.addQuadratureEncoder(PIN_ENC2_B, &encoder_raw[1]);
 }
 void motors_on_off(uint8_t status){
-    if (status){
-        //enabling motors
-        digitalWrite(PIN_DISABLE, LOW);
-        * pid_mode = MODE_NOPID;
-        motor_power[0]=0;
-        motor_power[1]=0;
-        * motor_status = STATUS_ON;
-        //encoders_reset();
-    } else {
-        //disabling motors
-        digitalWrite(PIN_DISABLE, HIGH);
-        * motor_status = STATUS_M1_OFF|STATUS_M2_OFF;
+    bool m1_status = status & 0x01;
+    bool m2_status = status & 0x02;
 
+    if (m1_status){
+        //enabling motor1
+        digitalWrite(PIN_DISABLE1, LOW);
+        motor_power[0]=0;
+        * motor_status &= 0b11111110; //set bit 0 to 0
+    } else {
+        //disabling motor1
+        digitalWrite(PIN_DISABLE1, HIGH);
+        * motor_status |= 0x01;   //set bit 0 to 1
+    }
+    if (m2_status){
+        //enabling motor1
+        digitalWrite(PIN_DISABLE2, LOW);
+        motor_power[1]=0;
+        * motor_status &= 0b11111101; //set bit 1 to 0
+    } else {
+        //disabling motor1
+        digitalWrite(PIN_DISABLE2, HIGH);
+        * motor_status |= 0x02;   //set bit 1 to 1
     }
     neopixel_update(); //set neopixel color to indicate new status
 }

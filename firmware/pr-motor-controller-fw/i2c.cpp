@@ -11,8 +11,9 @@ volatile uint8_t request_address;
 void i2c_begin(){
     uint8_t address = DEFAULT_I2C_ADDRESS;
     //check teh solder bridge jumpers and determine address
-    if (digitalRead(PIN_JMP1) == LOW ) address +=1;
-    if (digitalRead(PIN_JMP2) == LOW ) address +=2;
+    if (digitalRead(PIN_JMP0) == LOW ) address +=1;
+    if (digitalRead(PIN_JMP1) == LOW ) address +=2;
+    if (digitalRead(PIN_JMP2) == LOW ) address +=4;
     //just in case, set SDA/SCL pins
     Wire.setSDA(PIN_PRMC_SDA);
     Wire.setSCL(PIN_PRMC_SCL);
@@ -37,6 +38,7 @@ void i2c_receive_event(int bytes_received){
     uint8_t reg_address=Wire.read();//get the register offset, always first byte sent
     if ((bytes_received>1) && (reg_address<RW_REGISTERS)) {
         //this was to write data to register
+        have_i2c = true;
         for (int i=0; i<bytes_received-1; i++){
             REGBANK[reg_address+i]=Wire.read();
         }

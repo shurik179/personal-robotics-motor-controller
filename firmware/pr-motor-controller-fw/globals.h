@@ -6,7 +6,7 @@
 /* various global variables, defines, etc */
 
 
-#define FW_VERSION_MAJOR 1
+#define FW_VERSION_MAJOR 2
 #define FW_VERSION_MINOR 0
 
 #define DEFAULT_I2C_ADDRESS 0x54
@@ -105,9 +105,11 @@ extern volatile int16_t  * speed;   //2-element array
  FLAGS
 */
 
-extern volatile bool flag_enc_reset;
 extern volatile bool flag_enable;
 extern volatile bool flag_motor_power;
+
+/* other global variables */
+extern volatile bool have_i2c;
 
 /* *********************************************
  *  Function declaration

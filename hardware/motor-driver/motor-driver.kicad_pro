@@ -33,9 +33,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 1.7,
-          "height": 2.7,
-          "width": 2.7
+          "drill": 0.0,
+          "height": 1.8,
+          "width": 1.2
         },
         "silk_line_width": 0.15,
         "silk_text_italic": false,
@@ -45,7 +45,7 @@
         "silk_text_upright": false,
         "zones": {
           "45_degree_only": false,
-          "min_clearance": 0.508
+          "min_clearance": 0.17779999999999999
         }
       },
       "diff_pair_dimensions": [
@@ -57,8 +57,20 @@
       ],
       "drc_exclusions": [
         "courtyards_overlap|137949999|84900001|c4242a07-89ee-4784-ae22-b4e82124072a|dd8b0d0a-0939-4b62-86af-ef865aee21d0",
+        "courtyards_overlap|138159999|86400001|c4242a07-89ee-4784-ae22-b4e82124072a|dd8b0d0a-0939-4b62-86af-ef865aee21d0",
+        "courtyards_overlap|138159999|87900001|c4242a07-89ee-4784-ae22-b4e82124072a|dd8b0d0a-0939-4b62-86af-ef865aee21d0",
+        "courtyards_overlap|138159999|87900009|c4242a07-89ee-4784-ae22-b4e82124072a|dd8b0d0a-0939-4b62-86af-ef865aee21d0",
+        "courtyards_overlap|138999999|98200001|43354e42-4b1a-4626-bb40-e2876c138d49|dd8b0d0a-0939-4b62-86af-ef865aee21d0",
+        "courtyards_overlap|144500001|86400001|34ff2d7c-37cb-4fb2-b3f4-e3bb60609400|8c4012f3-4bfc-4e2f-af8e-2c4c502b4b25",
+        "courtyards_overlap|144500001|87900001|34ff2d7c-37cb-4fb2-b3f4-e3bb60609400|8c4012f3-4bfc-4e2f-af8e-2c4c502b4b25",
+        "courtyards_overlap|144500001|98280001|8c4012f3-4bfc-4e2f-af8e-2c4c502b4b25|d908b74e-cef5-4772-97d5-ac892573d66a",
         "courtyards_overlap|154449999|84900001|34ff2d7c-37cb-4fb2-b3f4-e3bb60609400|8c4012f3-4bfc-4e2f-af8e-2c4c502b4b25",
-        "courtyards_overlap|170949999|84900001|70ad651d-8fc6-4cb6-af51-28c8113ba023|a1a68341-bdd0-4e04-a621-cc5f4c9dcf71"
+        "courtyards_overlap|170909999|86400001|70ad651d-8fc6-4cb6-af51-28c8113ba023|a1a68341-bdd0-4e04-a621-cc5f4c9dcf71",
+        "courtyards_overlap|170909999|87900001|70ad651d-8fc6-4cb6-af51-28c8113ba023|a1a68341-bdd0-4e04-a621-cc5f4c9dcf71",
+        "courtyards_overlap|170949999|84900001|70ad651d-8fc6-4cb6-af51-28c8113ba023|a1a68341-bdd0-4e04-a621-cc5f4c9dcf71",
+        "courtyards_overlap|171999999|98200001|6f7ff4dc-6c61-41e8-8d2c-0c03a50f9439|a1a68341-bdd0-4e04-a621-cc5f4c9dcf71",
+        "silk_over_copper|146240000|135000000|a9ac2e2a-696d-42e8-b8e9-150d414bc81b|a6b7df29-bcf8-46a9-b623-7eaac47f5110",
+        "silk_over_copper|153760000|135000000|a9ac2e2a-696d-42e8-b8e9-150d414bc81b|d9c6d5d2-0b49-49ba-a970-cd2c32f74c54"
       ],
       "meta": {
         "version": 2
@@ -107,7 +119,7 @@
         "allow_blind_buried_vias": false,
         "allow_microvias": false,
         "max_error": 0.005,
-        "min_clearance": 0.0,
+        "min_clearance": 0.17779999999999999,
         "min_copper_edge_clearance": 0.0,
         "min_hole_clearance": 0.0,
         "min_hole_to_hole": 0.25,
@@ -115,7 +127,7 @@
         "min_microvia_drill": 0.09999999999999999,
         "min_silk_clearance": 0.0,
         "min_through_hole_diameter": 0.3,
-        "min_track_width": 0.19999999999999998,
+        "min_track_width": 0.17779999999999999,
         "min_via_annular_width": 0.049999999999999996,
         "min_via_diameter": 0.39999999999999997,
         "solder_mask_clearance": 0.0,
@@ -124,6 +136,8 @@
       },
       "track_widths": [
         0.0,
+        0.2032,
+        0.3048,
         0.508,
         1.524
       ],
@@ -373,6 +387,71 @@
         "via_diameter": 0.8,
         "via_drill": 0.4,
         "wire_width": 6.0
+      },
+      {
+        "bus_width": 12.0,
+        "clearance": 0.1778,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.1778,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Fine-pitch",
+        "nets": [
+          "+1V1",
+          "+3V3",
+          "+5V",
+          "/ADDR_0",
+          "/ADDR_1",
+          "/ADDR_2",
+          "/ENC1_A",
+          "/ENC1_B",
+          "/ENC2_A",
+          "/ENC2_B",
+          "/M1_DIR",
+          "/M1_ENABLE",
+          "/M1_FLAG",
+          "/M1_PWM",
+          "/M2_DIR",
+          "/M2_ENABLE",
+          "/M2_FLAG",
+          "/M2_PWM",
+          "/QSPI_SCLK",
+          "/QSPI_SD0",
+          "/QSPI_SD1",
+          "/QSPI_SD2",
+          "/QSPI_SD3",
+          "/QSPI_SS",
+          "/RUN",
+          "/SCL",
+          "/SDA",
+          "/USB_D+",
+          "/USB_D-",
+          "/XIN",
+          "/XOUT",
+          "/~{USB_BOOT}",
+          "GND",
+          "Net-(C19-Pad1)",
+          "Net-(C19-Pad2)",
+          "Net-(C20-Pad1)",
+          "Net-(D1-Pad1)",
+          "Net-(R5-Pad2)",
+          "Net-(R6-Pad2)",
+          "unconnected-(D3-Pad2)",
+          "unconnected-(J14-Pad4)",
+          "unconnected-(J6-Pad2)",
+          "unconnected-(J7-Pad2)",
+          "unconnected-(U5-Pad37)",
+          "unconnected-(U5-Pad38)",
+          "unconnected-(U5-Pad6)"
+        ],
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1778,
+        "via_diameter": 0.8,
+        "via_drill": 0.4,
+        "wire_width": 6.0
       }
     ],
     "meta": {
@@ -414,7 +493,7 @@
     "meta": {
       "version": 1
     },
-    "net_format_name": "",
+    "net_format_name": "KiCad",
     "ngspice": {
       "fix_include_paths": true,
       "fix_passive_vals": false,
