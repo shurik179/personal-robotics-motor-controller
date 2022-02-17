@@ -9,10 +9,10 @@ Specifications
 
 
 
-General
-=======
-The Personal Robotics  Motor Controller (which fronm now on will be abbreviated to PRMC)
- can be used to control two brushed DC motors (5-18V) with quadrature encoders.
+Overview
+=========
+The Personal Robotics  Motor Controller (which from now on will be abbreviated to PRMC)
+can be used to control two brushed DC motors (5-18V) with quadrature encoders.
 It provides position and speed reading (if encoders are present) and closed-loop
 mode in which it keeps motor speed constant using encoder feedback and PID algorithm.
 
@@ -58,16 +58,18 @@ motor controllers on the same bus.
 Power supply
 ============
 PRMC is intended for use with  motor power supply of **5--18V**. Absolute maximum
-voltage for power supply is 24V; voltages above that will damage PRMC.
+voltage for power supply is 24V; voltages above that will damage PRMC. Please
+note that actual voltage provided by the battery can be higher than nominal voltage:
+e.g., a 10-cell NiMH battery pack has nominal voltage of 12V but in fact a fully
+charged pack can read as high as 14V.
 
 
 The power supply connection has
 reverse polarity protection preventing damage if the power leads are switched.
-It also has limited  ESD protection to defend it from spikes caused by electrostatic discharge.
+It also has limited  ESD protection to protect  it from spikes caused by electrostatic discharge.
 
-PRMC contains a voltage regulator (combination of buck converter and an LDO) providing
+PRMC contains a voltage regulator (a combination of buck converter and an LDO) providing
 3.3v power to on-board electronics from the motor power supply.
-It also contains a power indicator LED.
 
 
 
@@ -79,6 +81,18 @@ ICs by Infineon; please read the IC  datasheet for details of their operation.
 PRMC also contains an RP2040 MCU by Raspberry Pi. It is preloaded with firmware
 providing I2C interface, reading quadrautre encoders, and providing closed loop motor control.
 
+
+Indicator LEDs
+==============
+PRMC includes a green power indicator LED; it lights up whenever the board is powered.
+In addition, it has two NeoPixel LEDs used to show the status of motors as follows:
+
+ - Blue: firmware running, but no I2C connection yet
+
+ - Green: motor enabled
+
+ - Red: motor disabled (either by command from  host MCU or because of triggered
+   protection such as overtemperature protection).
 
 Connections
 ===========
