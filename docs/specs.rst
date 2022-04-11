@@ -35,23 +35,26 @@ This also means that when daisy-chaining, it will not provide power to other I2C
 
 
 By default, the controller uses I2C address `0x54` (or 84 in decimal form).
-It can be changed by closing solder bridge jumpers on the bottom side  of the board:
-
-* closing jumper labeled `Bit0` adds 1 to the address
-
-* closing jumper labeled `Bit1` adds 2 to the address
-
-* closing jumper labeled `Bit2` adds 4 to the address
-
-Thus, by using different combinations of the jumpers, one can get any address between
-`0x54` (decimal 84) and `0x5A` (decimal 91), allowing one to use up to 8 such
-motor controllers on the same bus.
-
+It can be changed by closing solder bridge jumpers on the bottom side  of the
+board, below label `I2C ADDRESS`:
 
 
 .. figure:: images/bottom_view.jpg
     :alt: Bottom view
     :width: 80%
+
+
+
+* closing jumper labeled `0` sets bit 0, adding  1 to the address
+
+* closing jumper labeled `1` adds 2 to the address
+
+* closing jumper labeled `2` adds 4 to the address
+
+Thus, by using different combinations of the jumpers, one can get any address between
+`0x54` (decimal 84) and `0x5A` (decimal 91), allowing one to use up to 8 such
+motor controllers on the same bus.
+
 
 
 
@@ -79,7 +82,7 @@ Key components of PRMC are two `TLE9201SG <https://www.infineon.com/cms/en/produ
 ICs by Infineon; please read the IC  datasheet for details of their operation.
 
 PRMC also contains an RP2040 MCU by Raspberry Pi. It is preloaded with firmware
-providing I2C interface, reading quadrautre encoders, and providing closed loop motor control.
+providing I2C interface, reading quadrature encoders, and providing closed loop motor control.
 
 
 Indicator LEDs
@@ -141,7 +144,7 @@ The photos below show PRMC with different combinations of connectors.
 
 * With XT30 male connector  for main power and VH2 connectors for motors:
 
-   .. figure:: images/front_view_term.jpg
+   .. figure:: images/front_view_xt30.jpg
       :alt: Top view
       :width: 80%
 
