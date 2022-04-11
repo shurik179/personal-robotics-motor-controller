@@ -26,7 +26,8 @@ void motors_init(){
     SpeedController1.reset();
     SpeedController2.reset();
     //disable drivers
-    digitalWrite(PIN_DISABLE, HIGH);
+    digitalWrite(PIN_DISABLE1, HIGH);
+    digitalWrite(PIN_DISABLE2, HIGH);
     * motor_status = STATUS_M1_OFF|STATUS_M2_OFF;
     * pid_mode = MODE_NOPID;
     neopixel_update();

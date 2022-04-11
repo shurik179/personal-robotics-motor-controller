@@ -3,7 +3,7 @@
 Specifications
 **************************
 
-.. figure:: images/top_view.jpg
+.. figure:: images/front_view_term.jpg
     :alt: Top view
     :width: 80%
 
@@ -103,6 +103,7 @@ The board provides several options for connecting motors, encoders, and main pow
   sold by Servocity). Note: 6pin Dupont connectors used on other motors - e.g.
   `25mm motors <https://www.pololu.com/product/4865>`__ from Pololu - may use different pin order.
 
+
 * Encoder connections: a 4-pin JST PH connector, using the following pin order:
 
   - Pin1: GND;
@@ -119,11 +120,30 @@ The board provides several options for connecting motors, encoders, and main pow
 * Main power: 5mm pitch screw terminal or XT30 male connector
 
 * I2C connectors: the board provides two I2C Qwiic/Stemma QT I2C connectors.
-  This makes it possible to daisy-chain connectors.
+  This makes it possible to daisy-chain connectors. (Note: I2C connector doesn't
+  provide 3.3v power, see above.)
+
+The photos below show PRMC with different combinations of connectors.
 
 
+* With 5mm pitch screw terminals for main power and motors:
 
+  .. figure:: images/front_view_term.jpg
+     :alt: Top view
+     :width: 80%
 
+* With 5mm pitch screw terminals for main power and male headers for motor
+  connectors
+
+  .. figure:: images/front_view_dupont.jpg
+     :alt: Top view
+     :width: 80%
+
+* With XT30 male connector  for main power and VH2 connectors for motors:
+
+   .. figure:: images/front_view_term.jpg
+      :alt: Top view
+      :width: 80%
 
 
 
