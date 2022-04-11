@@ -13,27 +13,29 @@ commercial realizations.
 
 Key features of this controller are as follows:
 
-* support for 2 brushed DC motors
+* support for **2 brushed DC motors**
 
-* Motor voltage: 5-18v; reverse polarity protection for power input
+* Motor voltage: **5-18v**; reverse polarity protection for power input
 
 * Current per channel
 
-  - 8A peak, current limited
+  - **8A peak**, current limited
 
-  - 3.5A continuous if used without heatsinks
+  - **3.5A continuous** if used without heatsinks
 
-  - 5A continuous with optional heatsinks
+  - **5A continuous** with optional heatsinks
 
-* Support for quadrature encoders (3.3v) for each channel
+* Support for **quadrature encoders**  for each channel. Note: it uses
+  **3.3v for encoders** - make sure your encoders support that (many encoders
+  require 3.5V or above)
 
-* Closed loop speed control, using PID algorithm
+* **Closed loop speed control**, using PID algorithm
 
-* Variety of protection features: automatic overcurrent, overtemperature,
+* Variety of **protection features**: automatic overcurrent, overtemperature,
   undervoltage, and short circuit protection
 
 * Controlled by a host microcontroller  or single board computer such as Raspberry Pi
-  using I2C interface. MicroPython library is available
+  using **I2C interface**. MicroPython library is available
 
 All design files and software are available from the project |github| under open
 source license.

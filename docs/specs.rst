@@ -101,15 +101,21 @@ Connections
 ===========
 The board provides several options for connecting motors, encoders, and main power:
 
-* Motor connections: you can choose between 5mm pitch screw terminal,
-  JST VH connector, or 6pin Dupont connectors (matching pinout of `22mm motors <https://www.servocity.com/142-rpm-premium-planetary-gear-motor-w-encoder/>`__
-  sold by Servocity). Note: 6pin Dupont connectors used on other motors - e.g.
-  `25mm motors <https://www.pololu.com/product/4865>`__ from Pololu - may use different pin order.
+* Motor connections: you can choose between
+
+  - 5mm pitch screw terminal (we use high-quality rising cage type terminals)
+
+
+  - JST VH connector (same as used by First Tech Challenge robotics competitions) 
+
+  - 6pin Dupont connectors (matching pinout of `22mm motors <https://www.servocity.com/142-rpm-premium-planetary-gear-motor-w-encoder/>`__
+    sold by Servocity). Note: 6pin Dupont connectors used on other motors - e.g.
+    `25mm motors <https://www.pololu.com/product/4865>`__ from Pololu - may use different pin order.
 
 
 * Encoder connections: a 4-pin JST PH connector, using the following pin order:
 
-  - Pin1: GND;
+  - Pin 1: GND;
 
   - Pin 2: 3.3V;
 
@@ -188,7 +194,7 @@ Dimensions
 The board dimensions are 50x60mm. Board height depends on the chosen connectors;
 with screw terminals, height is about 14mm. If you use JST VH for motors or XT30
 connector for power, you will need at least 22mm clearance above the PCB for the
-connector abd cables.
+connector and cables.
 
 There are four mounting holes for M3 or smaller screws; their position is
 shown in the diagram below.
