@@ -1,6 +1,6 @@
-################
-Motor controller
-################
+##################################
+Personal Robotics Motor Controller
+##################################
 .. figure:: images/top_view_term.jpg
     :alt: Motor driver
     :width: 80%
