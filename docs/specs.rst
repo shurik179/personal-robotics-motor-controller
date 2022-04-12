@@ -97,8 +97,25 @@ In addition, it has two NeoPixel LEDs used to show the status of motors as follo
  - Red: motor disabled (either by command from  host MCU or because of triggered
    protection such as overtemperature protection).
 
+
+.. figure:: images/controller_leds.png
+   :alt: LEDs
+   :width: 80%
+
+
+
+
 Connections
 ===========
+
+
+.. figure:: images/controller_connectors.png
+:alt: LEDs
+:width: 80%
+
+
+
+
 The board provides several options for connecting motors, encoders, and main power:
 
 * Motor connections: you can choose between
@@ -106,7 +123,7 @@ The board provides several options for connecting motors, encoders, and main pow
   - 5mm pitch screw terminal (we use high-quality rising cage type terminals)
 
 
-  - JST VH connector (same as used by First Tech Challenge robotics competitions) 
+  - JST VH connector (same as used by First Tech Challenge robotics competitions)
 
   - 6pin Dupont connectors (matching pinout of `22mm motors <https://www.servocity.com/142-rpm-premium-planetary-gear-motor-w-encoder/>`__
     sold by Servocity). Note: 6pin Dupont connectors used on other motors - e.g.
