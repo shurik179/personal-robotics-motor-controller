@@ -39,6 +39,6 @@ void neopixel_update(){
         color2 = RED;
     }
 
-
-    neopixel_set_colors(color1,color2);
+    //note that Neopixel 1 is on the side of Motor2 and vice versa
+    neopixel_set_colors(color2,color1);
 }

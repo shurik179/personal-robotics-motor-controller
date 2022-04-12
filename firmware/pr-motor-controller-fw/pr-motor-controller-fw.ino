@@ -22,6 +22,7 @@ void setup(){
     globals_init(); // initialize global variables and register bank
     i2c_begin();    //start i2c bus on Wire, as a slave
     neopixel_init();
+    neopixel_set_colors(BLUE,BLUE);
     motors_init(); //set up motor controller, etc. Initially it shoudl be in disabled state, with pid mode PID_OFF
 
     //initRegmap();
