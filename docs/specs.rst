@@ -110,8 +110,8 @@ Connections
 
 
 .. figure:: images/controller_connectors.png
-:alt: LEDs
-:width: 80%
+   :alt: connections
+   :width: 80%
 
 
 
