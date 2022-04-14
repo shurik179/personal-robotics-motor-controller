@@ -120,13 +120,14 @@ The board provides several options for connecting motors, encoders, and main pow
 
 * Motor connections: you can choose between
 
-  - 5mm pitch screw terminal (we use high-quality rising cage type terminals)
+  - 5mm pitch **screw terminal** (we use high-quality rising cage type terminals)
 
 
-  - JST VH connector (same as used by First Tech Challenge robotics competitions)
+  - **JST VH** connector (same as used by First Tech Challenge robotics competitions)
 
-  - 6pin Dupont connectors (matching pinout of `22mm motors <https://www.servocity.com/142-rpm-premium-planetary-gear-motor-w-encoder/>`__
-    sold by Servocity). Note: 6pin Dupont connectors used on other motors - e.g.
+  - 6pin **male headers** (matching pinout of `22mm motors <https://www.servocity.com/142-rpm-premium-planetary-gear-motor-w-encoder/>`__
+    sold by Servocity). These connectors provide both motor power and encoder connectors.
+    Note: 6pin  connectors used by other motors - e.g.
     `25mm motors <https://www.pololu.com/product/4865>`__ from Pololu - may use different pin order.
 
 
@@ -143,29 +144,29 @@ The board provides several options for connecting motors, encoders, and main pow
   (This matches the pin order of
   `REV control hub <https://www.revrobotics.com/rev-31-1595/>`__ used in First Tech Challenge robotics competitions.)
 
-* Main power: 5mm pitch screw terminal or XT30 male connector
+* Main power: 5mm pitch **screw terminal** or **XT30** male connector
 
-* I2C connectors: the board provides two I2C Qwiic/Stemma QT I2C connectors.
+* I2C connectors: the board provides two Qwiic/Stemma QT I2C connectors.
   This makes it possible to daisy-chain connectors. (Note: I2C connector doesn't
   provide 3.3v power, see above.)
 
 The photos below show PRMC with different combinations of connectors.
 
 
-* With 5mm pitch screw terminals for main power and motors:
+* With  **screw terminals** for main power and motors:
 
   .. figure:: images/front_view_term.jpg
      :alt: Top view
      :width: 80%
 
-* With 5mm pitch screw terminals for main power and male headers for motor
+* With  **screw terminals** for main power and **male headers** for motor
   connectors
 
   .. figure:: images/front_view_dupont.jpg
      :alt: Top view
      :width: 80%
 
-* With XT30 male connector  for main power and VH2 connectors for motors:
+* With **XT30** male connector  for main power and **JST VH2** connectors for motors:
 
    .. figure:: images/front_view_xt30.jpg
       :alt: Top view
