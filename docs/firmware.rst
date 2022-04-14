@@ -130,3 +130,6 @@ long time to stabilize to the desired speed; if the coefficient :math:`K_p` is
 too large, you might get oscillations. Choosing the correct coefficients
 requires significant experience and is certainly outside the scope of this user
 guide.
+
+Please note that current version of firmware uses same PID coefficients for
+both motors; setting them independently for the two motors is not supported. 

@@ -142,7 +142,7 @@ Encoders and speed
 PID configuration
 -----------------
 To use PID mode (as described in `Firmware` section), you need to set PID
-coefficients. You can do it using funcitons bewlo. 
+coefficients. You can do it using functions below. 
 
 
 .. function:: configure_pid(maxspeed, Kp, Ti, Td, Ilim)
