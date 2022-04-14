@@ -116,7 +116,7 @@ speeds (measured in encoder ticks/sec) and :math:`K_p` is a coefficient
 :math:`I` but clipped to be between :math:`-I_{lim}` and :math:`I_{lim}`
 
 
-:math:`K_p T_d \frac{d}{dt} e\frac{d}{dt}e` is the  derivative
+:math:`D=K_p T_d \frac{d}{dt} e` is the  derivative
 of the error
 
 :math:`K_p, T_i, T_d, I_{lim}` are the PID coefficients. They **must  be set
