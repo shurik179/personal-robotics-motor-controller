@@ -88,4 +88,45 @@ in software by writing to `REG_REVERSE`.
 PID control
 ===========
 
-(Work in progress)
+
+Motor driver firmware provides an option of closed loop motor control. In this mode,
+the controller tries to keep the speed of each motor (as measured using encoders)
+as close as possible to the desired speed, using industry-standard PID
+(proportional-integral-derivative) algorithm.
+
+The motor power is determined by the standard formula of PID algorithm:
+
+.. math::
+   M=M_0+ P + I_{clipped} + D
+
+
+where:
+
+:math:`M` is motor power (ranging from -1.0 to 1.0)
+
+:math:`M_0=v_{target}/v_{max}` is the zero-level approximation; here
+:math:`v_{target}` is the requested speed (in ticks/s) and :math:`v_{max}` is the maximal
+possible motor speed, which is determined by motor's no-load RPM
+
+:math:`P=K_p e` is the proportional term. Here
+:math:`e=v_{target}-v_{actual}` is the error, i.e. the  difference of desired and actual motor
+speeds (measured in encoder ticks/sec) and :math:`K_p` is a coefficient
+
+:math:`I=\frac{K_p}{T_i}\int e dt` is the integral term; :math:`I_{clipped}` is
+:math:`I` but clipped to be between :math:`-I_{lim}` and :math:`I_{lim}`
+
+
+:math:`K_p T_d \frac{d}{dt} e\frac{d}{dt}e` is the  derivative
+of the error
+
+:math:`K_p, T_i, T_d, I_{lim}` are the PID coefficients. They **must  be set
+(by writing to corresponding registers) before PID mode can be used**; there
+are no default values.
+
+
+The behavior of the PID algorithm is determined by these coefficients; for
+example, if the coefficient :math:`K_p` is too small, it will take the motor a
+long time to stabilize to the desired speed; if the coefficient :math:`K_p` is
+too large, you might get oscillations. Choosing the correct coefficients
+requires significant experience and is certainly outside the scope of this user
+guide.

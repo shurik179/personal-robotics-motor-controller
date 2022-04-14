@@ -6,7 +6,7 @@ This chapter documents included Micropython library.
 
 Installation
 ============
-To install the library, download the latest version of `pr_motor_controller.py` file
+To install the library, download the latest version of `PRMC.py` file
 from `mp_library` folder in |github| and copy it to the root directory of your board.
 
 
@@ -20,10 +20,10 @@ Below is the basic example of Micropython code using the library.
 
     from machine import Pin, I2C
     from time import sleep
-    import pr_motor_controller
+    import PRMC
     i2c = I2C(0, scl=Pin(9), sda=Pin(8), freq=100000)
 
-    driver = pr_motor_controller.controller(i2c)
+    driver = PRMC.controller(i2c)
 
     print("Motor controller initialized.")
     print("Firmware version: " + driver.fw_version()))
@@ -44,27 +44,31 @@ Motor1, and value of 1, to Motor2.
 Initialization and basic info
 -----------------------------
 
-.. function:: controller(i2c, address=MD_DEFAULT_I2C_ADDRESS)
+.. function:: controller(i2c, address=PRMC_DEFAULT_I2C_ADDRESS)
 
     Creates and initializes motor driver object. If connection can't be established
     (e.g. because the driver is not connected or malfunctions), an exception will be raised.
     Optional parameter `address` is the I2C address. If omitted, default value of
-    `MD_DEFAULT_I2C_ADDRESS=0x54` is used.
+    `PRMC_DEFAULT_I2C_ADDRESS=0x54` is used.
 
 
 .. function:: fw_version()
 
    Returns firmware version as a string, in format `major.minor`, e.g. `1.99`
 
-.. function:: disable(motor)
 
-   Disable motor.(Both motors are initially enabled.)
+.. function:: enable(motor_combo)
 
+   Enable/disable motors. Possible values for `motor_combo` are:
 
+   * `0`: both motors disabled
 
-.. function:: enable(motor)
+   * `1`: motor 1 enabled, motor 2 disabled
 
-   Re-enable motor.
+   * `2`: motor 2 enabled, motor 1 disabled
+
+   * `3`: both motors enabled
+
 
 .. function:: motor_status(motor)
 
@@ -137,41 +141,8 @@ Encoders and speed
 
 PID configuration
 -----------------
-
-Motor driver firmware provides an option of closed loop motor control. In this mode,
-the controller tries to keep the speed of each motor (as measured using encoders)
-as close as possible to the desired speed, using industry-standard PID
-(proportional-integral-derivative) algorithm.
-
-The motor power is determined by the standard formula of PID algorithm:
-
-.. math::
-   P=P_0+ K_p e+\frac{K_p}{T_i}\int e\, dt +K_p T_d \frac{d}{dt} e
-
-where:
-
-:math:`P` is motor power (ranging from -1.0 to 1.0)
-
-:math:`P_0=v_{desired}/v_{max}` is the zero-level approximation; here
-:math:`v_{desired}` is the requested speed (in ticks/s) and :math:`v_{max}` is the maximal
-possible motor speed, which is determined by motor's no-load RPM.
-
-:math:`e=v_{desired}-v_{actual}` is the error, i.e. the  difference of desired and actual motor
-speeds (measured in encoder ticks/sec)
-
-:math:`\int e dt` and :math:`\frac{d}{dt}e` are the integral and derivative
-of the error, measured in encoder tics and tics/:math:`sec^2` respectively
-
-:math:`K_p, T_i, T_d` are the PID coefficients.
-
-
-The behavior of the PID algorithm is determined by these coefficients; for
-example, if the coefficient :math:`K_p` is too small, it will take the motor a
-long time to stabilize to the desired speed; if the coefficient :math:`K_p` is
-too large, you might get oscillations. Choosing the correct coefficients
-requires significant experience and is certainly outside the scope of this user
-guide.
-
+To use PID mode (as described in `Firmware` section), you need to set PID
+coefficients. You can do it using funcitons bewlo. 
 
 
 .. function:: configure_pid(maxspeed, Kp, Ti, Td, Ilim)

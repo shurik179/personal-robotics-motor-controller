@@ -1,66 +1,69 @@
 import machine
 
 
-MD_DEFAULT_I2C_ADDRESS = 0x54
+PRMC_DEFAULT_I2C_ADDRESS = 0x54
 
-MD_MOTOR_MAX_SPEED = 1000
+PRMC_MOTOR_MAX_SPEED = 1000
 
-MD_REG_ENABLE          = const(0)
-MD_REG_PID_MODE        = const(1)
-MD_REG_MAX_SPEED       = const(2)
-MD_REG_PID_KP          = const(4)
-MD_REG_PID_TI          = const(6)
-MD_REG_PID_TD          = const(8)
-MD_REG_PID_ILIM        = const(10)
-MD_REG_POWER1          = const(12)
-MD_REG_POWER2          = const(14)
-MD_REG_REVERSE         = const(16)
-#MD_REG_ENC_RESET       = const(16)
+
+
+PRMC_REG_ENABLE          = const(0)
+PRMC_REG_PID_MODE        = const(1)
+PRMC_REG_MAX_SPEED       = const(2)
+PRMC_REG_PID_KP          = const(4)
+PRMC_REG_PID_TI          = const(6)
+PRMC_REG_PID_TD          = const(8)
+PRMC_REG_PID_ILIM        = const(10)
+PRMC_REG_POWER1          = const(12)
+PRMC_REG_POWER2          = const(14)
+PRMC_REG_REVERSE         = const(16)
+#PRMC_REG_ENC_RESET       = const(16)
 
 # Read-only registers
-MD_REG_FW_VERSION      = const(24)
-MD_REG_WHO_AM_I        = const(26)
-MD_REG_STATUS          = const(27)
-MD_REG_ENCODER1        = const(28)
-MD_REG_ENCODER2        = const(32)
-MD_REG_SPEED1          = const(36)
-MD_REG_SPEED2          = const(38)
+PRMC_REG_FW_VERSION      = const(24)
+PRMC_REG_WHO_AM_I        = const(26)
+PRMC_REG_STATUS          = const(27)
+PRMC_REG_ENCODER1        = const(28)
+PRMC_REG_ENCODER2        = const(32)
+PRMC_REG_SPEED1          = const(36)
+PRMC_REG_SPEED2          = const(38)
 
+# Motor enable masks
+PRMC_ENABLE_M1 = const (1)
+PRMC_ENABLE_M2 = const (2)
+PRMC_ENABLE_BOTH = const (3)
 
 class controller():
-    def __init__(self, i2c, address=MD_DEFAULT_I2C_ADDRESS):
+    def __init__(self, i2c, address=PRMC_DEFAULT_I2C_ADDRESS):
         self._i2c = i2c
         self._addr = address
         self.encoder=[0,0]
         self.speed=[0,0]
         #check connection
-        who_am_i = self._read_8(MD_REG_WHO_AM_I)
-        if who_am_i != MD_DEFAULT_I2C_ADDRESS:
+        who_am_i = self._read_8(PRMC_REG_WHO_AM_I)
+        if who_am_i != PRMC_DEFAULT_I2C_ADDRESS:
             print(who_am_i);
             raise RuntimeError('Could not find motor driver, is it connected and powered? ')
         else:
             print("Motor driver  initialized")
             # enable motors
-            self._i2c.writeto_mem(self._addr, MD_REG_ENABLE, bytes([1]))
+            self._i2c.writeto_mem(self._addr, PRMC_REG_ENABLE, bytes([PRMC_ENABLE_BOTH]))
 
 
 ######### BASIC  FUNCTIONS ################################
-    def enable(self):
-        self._write_8(MD_REG_ENABLE, 1)
-
-    def disable(self):
-        self._write_8(MD_REG_ENABLE, 0)
+    def enable(self,mask):
+        self._write_8(PRMC_REG_ENABLE, mask)
 
     def status(self,index):
-        raw_status=self._read_8(MD_REG_STATUS)
+        raw_status=self._read_8(PRMC_REG_STATUS)
         if index == 0:
             return (raw_status & 1)
         if index == 1:
             return (raw_status & (1<<1))
 
     def fw_version(self):
-        minor = self._read_8(MD_REG_FW_VERSION)
-        major = self._read_8(MD_REG_FW_VERSION + 1)
+        minor = self._read_8(PRMC_REG_FW_VERSION)
+        major = self._read_8(PRMC_REG_FW_VERSION + 1)
         return("{}.{}".format(major,minor))
 
 
@@ -68,16 +71,16 @@ class controller():
 
     def set_motor(self, motor, power):
         if (motor == 0):
-            self._write_16(MD_REG_POWER1, round(power))
+            self._write_16(PRMC_REG_POWER1, round(power))
         elif (motor == 1):
-            self._write_16(MD_REG_POWER2, round(power))
+            self._write_16(PRMC_REG_POWER2, round(power))
         else:
             raise RuntimeError('Invalid motor number')
 
     def set_motors(self,  power1, power2=None):
         if power2 is None:
             power2 = power1
-        self._write_16_array(MD_REG_POWER1, [round(power1), round(power2)])
+        self._write_16_array(PRMC_REG_POWER1, [round(power1), round(power2)])
 ######## MOTOR CONTROL WITH PID ##################################
 
     def configure_pid(self, maxspeed, Kp = None, Ti = None, Td = None, Ilim = None):
@@ -87,39 +90,39 @@ class controller():
             Td = 0.03
             Ilim = 1000
         data = [round(maxspeed), round(Kp*10000000), round(Ti*1000), round (Td*1000), round(Ilim)]
-        self._write_16_array(MD_REG_MAX_SPEED, data)
+        self._write_16_array(PRMC_REG_MAX_SPEED, data)
 
     def pid_on(self):
-        self._write_8(MD_REG_PID_MODE, 1)
+        self._write_8(PRMC_REG_PID_MODE, 1)
 
     def pid_off(self):
-        self._write_8(MD_REG_PID_MODE, 0)
+        self._write_8(PRMC_REG_PID_MODE, 0)
 
 
 ######## encoders  ##################################
     def reverse_encoder(self, i):
         if i==0:
-            self._write_8(MD_REG_REVERSE, 1)
+            self._write_8(PRMC_REG_REVERSE, 1)
         else:
-            self._write_8(MD_REG_REVERSE, 4)
+            self._write_8(PRMC_REG_REVERSE, 4)
 
     def get_encoders(self):
-        self._read_32_array(MD_REG_ENCODER1, self.encoder)
+        self._read_32_array(PRMC_REG_ENCODER1, self.encoder)
 
     def get_speeds(self):
-        self._read_16_array(MD_REG_SPEED1, self.speed)
+        self._read_16_array(PRMC_REG_SPEED1, self.speed)
 
     def get_encoder(self,i):
         if i==0:
-            return(self._read_32(MD_REG_ENCODER1))
+            return(self._read_32(PRMC_REG_ENCODER1))
         else:
-            return(self._read_32(MD_REG_ENCODER2))
+            return(self._read_32(PRMC_REG_ENCODER2))
 
     def get_speed(self,i):
         if i==0:
-            return(self._read_16(MD_REG_SPEED1))
+            return(self._read_16(PRMC_REG_SPEED1))
         else:
-            return(self._read_16(MD_REG_SPEED2))
+            return(self._read_16(PRMC_REG_SPEED2))
 
 ##########  I2C UTILITY  ########################################
     def _write_8(self, register, data):

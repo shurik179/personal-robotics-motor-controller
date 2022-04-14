@@ -1,14 +1,18 @@
 from machine import Pin, I2C
 from time import sleep
-import pr_motor_controller
+import PRMC
 #For Pico
 #i2c = I2C(0, scl=Pin(9), sda=Pin(8), freq=100000)
 #FOR RP2040 ItsyBitsy
 i2c = I2C(1, scl=Pin(3), sda=Pin(2), freq=100000)
 
-# just for testing
+# when using default i2c address:
+driver = PRMC.controller(i2c)
+# otherwise, use this form:
+# driver = PRMC.controller(i2c, i2c_address)
 
-driver = pr_motor_controller.controller(i2c)
+
+
 
 print("Motor controller initialized.")
 print("Firmware version: " + driver.fw_version())
