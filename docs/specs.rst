@@ -155,16 +155,16 @@ The photos below show PRMC with different combinations of connectors.
 
 * With  **screw terminals** for main power and motors:
 
-  .. figure:: images/front_view_term.jpg
-     :alt: Top view
-     :width: 80%
+   .. figure:: images/front_view_term.jpg
+      :alt: Top view
+      :width: 80%
 
 * With  **screw terminals** for main power and **male headers** for motor
   connectors
 
-  .. figure:: images/front_view_dupont.jpg
-     :alt: Top view
-     :width: 80%
+   .. figure:: images/front_view_dupont.jpg
+      :alt: Top view
+      :width: 80%
 
 * With **XT30** male connector  for main power and **JST VH2** connectors for motors:
 
