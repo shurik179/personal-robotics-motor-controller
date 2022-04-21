@@ -24,7 +24,7 @@ is_release_build = os.environ.get('READTHEDOCS') == 'True'
 project = 'Motor Driver'
 author = 'Alexander Kirillov'
 
-copyright_year = 2021-2022
+copyright_year = '2021-2022'
 
 copyright = str(copyright_year) + ", " + str(author)
 
@@ -130,6 +130,6 @@ html_theme_options = {
 imgmath_image_format = 'svg'
 
 rst_epilog = """
-.. |github| replace:: `github repository <https://github.com/shurik179/motor-driver>`__
+.. |github| replace:: `github repository <https://github.com/shurik179/personal-robotics-motor-controller>`__
 .. |library| replace:: `Library Reference`
 """
