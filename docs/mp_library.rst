@@ -28,7 +28,7 @@ Below is the basic example of Micropython code using the library.
     print("Motor controller initialized.")
     print("Firmware version: " + driver.fw_version()))
     # driver.reverse_encoder(0)
-    driver.set_motors(500) #set speed of both motors to 50%
+    driver.set_motors(0.5) #set speed of both motors to 50%
     while True:
         driver.get_encoders()
         driver.get_speeds()
@@ -44,7 +44,7 @@ Motor1, and value of 1, to Motor2.
 Initialization and basic info
 -----------------------------
 
-.. function:: controller(i2c, address=PRMC_DEFAULT_I2C_ADDRESS)
+.. function:: controller(i2c, address=0x54)
 
     Creates and initializes motor driver object. If connection can't be established
     (e.g. because the driver is not connected or malfunctions), an exception will be raised.
@@ -57,17 +57,38 @@ Initialization and basic info
    Returns firmware version as a string, in format `major.minor`, e.g. `1.99`
 
 
+.. function:: disable(motor_combo)
+
+   Disable motor outputs. Possible values for `motor_combo` are:
+
+   * `1`: disable motor 1, enable motor 2
+
+   * `2`: enable motor 1, disable motor 2
+
+   * `3`: disable both motors
+
 .. function:: enable(motor_combo)
 
-   Enable/disable motors. Possible values for `motor_combo` are:
+   Opposite of the previous command, setting which motors should be enabled.
 
-   * `0`: both motors disabled
+   Possible values for `motor_combo` are:
 
-   * `1`: motor 1 enabled, motor 2 disabled
+  * `1`: enable motor 1, disable motor 2
 
-   * `2`: motor 2 enabled, motor 1 disabled
+  * `2`: disable motor 1, enable motor 2
 
-   * `3`: both motors enabled
+  * `3`: enable both motors
+
+  Note: according to the datasheet, if a motor driver was disabled by a triggered
+  protection feature (e.g., overtemperature protection), to enable it again you need
+  to first send disable signal and then enable signal:
+
+  .. code-block:: python
+
+      driver.disable(1) # to disable motor 1, leaving motor 2 enabled
+      driver.enable(3)  # to reenable both motors 
+
+
 
 
 .. function:: motor_status(motor)
@@ -89,7 +110,7 @@ Basic motor control
 .. function:: set_motor(motor, power)
 
    Sets the power for given motor.
-   The power ranges between -1000 (full speed backwards) to 1000 (full speed forwards)
+   The power ranges between -1.0 (full speed backwards) to 1.0 (full speed forwards)
 
 .. function:: set_motors(power1, power2 = None)
 
@@ -142,7 +163,7 @@ Encoders and speed
 PID configuration
 -----------------
 To use PID mode (as described in `Firmware` section), you need to set PID
-coefficients. You can do it using functions below. 
+coefficients. You can do it using functions below.
 
 
 .. function:: configure_pid(maxspeed, Kp, Ti, Td, Ilim)

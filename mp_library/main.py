@@ -17,7 +17,7 @@ driver = PRMC.controller(i2c)
 print("Motor controller initialized.")
 print("Firmware version: " + driver.fw_version())
 # driver.reverse_encoder(0)
-driver.set_motors(500) #set speed of both motors to 50%
+driver.set_motors(0.5) #set speed of both motors to 50%
 while True:
     driver.get_encoders()
     driver.get_speeds()

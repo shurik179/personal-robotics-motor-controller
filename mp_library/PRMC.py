@@ -1,4 +1,5 @@
 import machine
+from time import sleep
 
 
 PRMC_DEFAULT_I2C_ADDRESS = 0x54
@@ -45,12 +46,20 @@ class controller():
             print(who_am_i);
             raise RuntimeError('Could not find motor driver, is it connected and powered? ')
         else:
-            print("Motor driver  initialized")
             # enable motors
-            self._i2c.writeto_mem(self._addr, PRMC_REG_ENABLE, bytes([PRMC_ENABLE_BOTH]))
+            self.set_motors(0)
+            self.pid_off()
+            self.disable(PRMC_ENABLE_BOTH)
+            sleep(0.1)
+            self.enable(PRMC_ENABLE_BOTH)
+            print("Motor driver  initialized")
 
 
 ######### BASIC  FUNCTIONS ################################
+    def disable(self,mask):
+        self._write_8(PRMC_REG_ENABLE, 3-mask) # effectively, bitwise negation of 2-bit integer
+
+
     def enable(self,mask):
         self._write_8(PRMC_REG_ENABLE, mask)
 
@@ -70,17 +79,18 @@ class controller():
 ######## MOTOR CONTROL, NO PID ##################################
 
     def set_motor(self, motor, power):
+
         if (motor == 0):
-            self._write_16(PRMC_REG_POWER1, round(power))
+            self._write_16(PRMC_REG_POWER1, round(power*1000))
         elif (motor == 1):
-            self._write_16(PRMC_REG_POWER2, round(power))
+            self._write_16(PRMC_REG_POWER2, round(power*1000))
         else:
             raise RuntimeError('Invalid motor number')
 
     def set_motors(self,  power1, power2=None):
         if power2 is None:
             power2 = power1
-        self._write_16_array(PRMC_REG_POWER1, [round(power1), round(power2)])
+        self._write_16_array(PRMC_REG_POWER1, [round(power1*1000), round(power2*1000)])
 ######## MOTOR CONTROL WITH PID ##################################
 
     def configure_pid(self, maxspeed, Kp = None, Ti = None, Td = None, Ilim = None):
