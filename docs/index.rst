@@ -49,3 +49,5 @@ This document describes version 2.0 of the project, released in April 2022.
     specs
     firmware
     mp_library
+    license
+    
