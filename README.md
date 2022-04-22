@@ -10,7 +10,7 @@ features of this controller are listed below:
 
 * Support for 2 brushed DC motors, 5-18v
 
-* Current limit per channel: 5A continuous (with heatsinks), up to 8A peak.
+* Current limit per channel: 4.5A continuous (with heatsinks), up to 8A peak.
 
 * Short circuit, undervoltage, and overtemperature protection
 

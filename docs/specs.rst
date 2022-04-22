@@ -187,7 +187,12 @@ provide 3.5A per channel in default configuration.
 The board also contains two areas to which one can attach optional 14mm square heatsinks
 (which are commonly used for Raspberry Pi single board computers and thus are
 easily available from many vendors). With the heatsinks attached, the board can
-provide up to 5A  continuous per channel.
+provide up to 4.5A  continuous per channel.
+
+.. figure:: images/with_heatsinks.jpg
+   :alt: With heatsinks
+   :width: 80%
+
 
 
 Protection features

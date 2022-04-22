@@ -24,7 +24,7 @@ Key features of this controller are as follows:
 
   - **3.5A continuous** if used without heatsinks
 
-  - **5A continuous** with optional heatsinks
+  - **4.5A continuous** with optional heatsinks
 
 * Support for **quadrature encoders**  for each channel. Note: it uses
   **3.3v for encoders** - make sure your encoders support that (many encoders
