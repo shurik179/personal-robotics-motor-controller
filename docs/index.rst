@@ -9,7 +9,8 @@ This guide contains documentation for a dual channel controller for DC motors.
 This controller was created by group of robotics enthusiasts from Personal Robotics
 discord server, who needed a mid-power dual channel motor controller supporting
 closed loop motor control but were not ready to pay $70 and more for existing
-commercial realizations.
+commercial realizations. So we created our own - and made it available on Tindie:
+https://www.tindie.com/products/26573/
 
 Key features of this controller are as follows:
 
@@ -50,4 +51,3 @@ This document describes version 2.0 of the project, released in April 2022.
     firmware
     mp_library
     license
-    
