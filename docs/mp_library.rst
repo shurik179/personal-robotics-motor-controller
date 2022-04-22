@@ -47,7 +47,8 @@ Initialization and basic info
 .. function:: controller(i2c, address=0x54)
 
     Creates and initializes motor controller object. If connection can't be established
-    (e.g. because the driver is not connected or malfunctions), an exception will be raised.
+    (e.g. because the driver is not connected or malfunctions), a `RuntimeError` 
+    exception will be raised.
     Optional parameter `address` is the I2C address. If omitted, default value of
     `PRMC_DEFAULT_I2C_ADDRESS=0x54` is used.
 

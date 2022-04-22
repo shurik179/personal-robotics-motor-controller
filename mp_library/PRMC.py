@@ -41,10 +41,14 @@ class controller():
         self.encoder=[0,0]
         self.speed=[0,0]
         #check connection
-        who_am_i = self._read_8(PRMC_REG_WHO_AM_I)
+        try: 
+            who_am_i = self._read_8(PRMC_REG_WHO_AM_I)
+        except OSError:
+            who_am_i = 0
+            
         if who_am_i != PRMC_DEFAULT_I2C_ADDRESS:
             print(who_am_i);
-            raise RuntimeError('Could not find motor driver, is it connected and powered? ')
+            raise RuntimeError("Could not find motor driver at address 0x{:X}".format(address))
         else:
             # enable motors
             self.set_motors(0)

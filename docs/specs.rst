@@ -36,7 +36,7 @@ This also means that when daisy-chaining, it will not provide power to other I2C
 
 By default, the controller uses I2C address `0x54` (or 84 in decimal form).
 It can be changed by closing solder bridge jumpers on the bottom side  of the
-board, below label `I2C ADDRESS`:
+board, below label `I2C ADDR`:
 
 
 .. figure:: images/bottom_view.jpg

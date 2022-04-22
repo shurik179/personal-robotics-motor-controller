@@ -31,14 +31,7 @@ void setup(){
 }
 
 void loop(){
-    //first, check if one of motor drivers has error condition
-    uint8_t new_status = (digitalRead(PIN_ERROR2)<<1) | digitalRead(PIN_ERROR1);
-    //Serial.println(new_status);
-    if (new_status != *motor_status){
-        //update status and neopixel
-        * motor_status = new_status;
-        neopixel_update();
-    }
+
     //now, check if we got enable/disable commands
     if (flag_enable) {
         //we got command from host to enable or disable motors
@@ -51,7 +44,7 @@ void loop(){
         flag_motor_power = false;
         motors_set_speeds();
     }
-    //now, let su check if it is time to compute motor speeds and apply PID corrections
+    //now, let us check if it is time to compute motor speeds and apply PID corrections
     if (micros()-last_speed_update > SPEED_UPDATE_INTERVAL) {
         last_speed_update = micros();
         //Serial.println(last_speed_update);
@@ -59,6 +52,10 @@ void loop(){
         if (*pid_mode == MODE_PID) {
             motors_pid_update();
         }
+        //also, let us update motor status 
+        * motor_status = (digitalRead(PIN_ERROR2)<<1) | digitalRead(PIN_ERROR1);
+        neopixel_update();
+    
     }
 
 }
