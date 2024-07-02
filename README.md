@@ -5,21 +5,21 @@ This repository contain design files for a 2-channel motor
 controller board, designed by members of Personal Robotics discord server.
 
 
-The controller is based on TLE9201 motor driver ICs by Infineon. The  key
+The controller is based on [DRV8874](https://www.ti.com/lit/ds/symlink/drv8874.pdf) motor driver ICs by TI. The  key
 features of this controller are listed below:
 
-* Support for 2 brushed DC motors, 5-18v
+* Support for 2 brushed DC motors, 5-24v
 
-* Current limit per channel: 4.5A continuous (with heatsinks), up to 8A peak.
+* Current limit per channel: 4.5A continuous (with heatsinks), current limited
 
-* Short circuit, undervoltage, and overtemperature protection
+* Overcurrent, undervoltage, and overtemperature protection
 
 * Support for quadrature encoders for each motor (3.3v)
 
 * An on-board MCU (RP2040) for reading encoder input and
-  providing variety of closed loop motor control modes
+  providing variety of close loop motor control modes
 
-* I2C interface for control by a microcontroller or single board computer
+* Serial interface for control by a microcontroller or single board computer
 
 This repository contains both board design files (as KiCad 6.0 project) and
 firmware (written using Arduino IDE with Earl Philhower arduino-pico core for RP2040).
@@ -28,7 +28,7 @@ Detailed project information is available http://motor-controller.rtfd.io/
 
 ## Copyright
 
-This project was created in 2021  by:
+This project was started in 2021  by:
 
 * Ichiro Furusato  (https://github.com/ifurusato)
 
