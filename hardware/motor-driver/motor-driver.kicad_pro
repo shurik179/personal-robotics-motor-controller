@@ -34,9 +34,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.0,
-          "height": 1.8,
-          "width": 1.2
+          "drill": 0.2,
+          "height": 0.5,
+          "width": 0.5
         },
         "silk_line_width": 0.15,
         "silk_text_italic": false,
@@ -56,18 +56,7 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [
-        "courtyards_overlap|138159999|87900009|c4242a07-89ee-4784-ae22-b4e82124072a|dd8b0d0a-0939-4b62-86af-ef865aee21d0",
-        "courtyards_overlap|138999999|98200001|43354e42-4b1a-4626-bb40-e2876c138d49|dd8b0d0a-0939-4b62-86af-ef865aee21d0",
-        "courtyards_overlap|144500001|98280001|8c4012f3-4bfc-4e2f-af8e-2c4c502b4b25|d908b74e-cef5-4772-97d5-ac892573d66a",
-        "courtyards_overlap|150200001|98250001|8c4012f3-4bfc-4e2f-af8e-2c4c502b4b25|b5051721-ca9b-4d1b-9505-19ae3a406b2a",
-        "courtyards_overlap|155207691|87900001|34ff2d7c-37cb-4fb2-b3f4-e3bb60609400|8c4012f3-4bfc-4e2f-af8e-2c4c502b4b25",
-        "courtyards_overlap|170909999|87900001|70ad651d-8fc6-4cb6-af51-28c8113ba023|a1a68341-bdd0-4e04-a621-cc5f4c9dcf71",
-        "courtyards_overlap|171999999|98200001|6f7ff4dc-6c61-41e8-8d2c-0c03a50f9439|a1a68341-bdd0-4e04-a621-cc5f4c9dcf71",
-        "lib_footprint_mismatch|123500000|131500000|83e77f35-0c10-4588-be5a-8251d3dfa27a|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|176500000|131500000|17d26734-9dd4-4f91-a2c8-2d3c15d00a79|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|176500000|88500000|357e4838-ce42-43d8-9290-53540f2f1374|00000000-0000-0000-0000-000000000000"
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
@@ -125,7 +114,7 @@
         "allow_blind_buried_vias": false,
         "allow_microvias": false,
         "max_error": 0.005,
-        "min_clearance": 0.127,
+        "min_clearance": 0.15,
         "min_connection": 0.0,
         "min_copper_edge_clearance": 0.0,
         "min_hole_clearance": 0.0,
@@ -432,7 +421,7 @@
     "classes": [
       {
         "bus_width": 12,
-        "clearance": 0.2,
+        "clearance": 0.1778,
         "diff_pair_gap": 0.25,
         "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.2,
