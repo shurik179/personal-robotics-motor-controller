@@ -9,19 +9,16 @@ Firmware
 The firmware for the PRMC motor controller  is written in Arduino IDE using
 Earl Philhower's `RP2040 core <https://github.com/earlephilhower/arduino-pico>`__.
 
-If you want to modify it, you can find source files in `firmware` folder in |github|.
+If you want to modify it, you can find source files in `firmware` folder in |github|. 
+Make sure to select `Boot Stage 2: W25Q16JVxQ QSPI/4` option in `Tools` menu. 
+
 
 
 I2C communication
 =================
 
-PRMC is controlled via I2C bus. It supports speeds up to 400kHz.
-Default I2C address is `0x54`, but it can be changed by closing the solder
-bridge jumpers on the bottom of the board (see `specs`).
-
-It uses the common register model: I2C master reads and writes data to registers.
-The following table lists all PRMC I2C registers.
-
+PRMC is controlled via UART 
+FIXME 
 All multibyte registers use little-endian encoding; e.g. for register
 `REG_POWER1`, low byte is at address 12, and high byte, at address 13.
 

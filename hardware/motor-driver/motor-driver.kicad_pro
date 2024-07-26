@@ -56,7 +56,17 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        "courtyards_overlap|138159999|87900009|c4242a07-89ee-4784-ae22-b4e82124072a|dd8b0d0a-0939-4b62-86af-ef865aee21d0",
+        "courtyards_overlap|138999999|98200001|43354e42-4b1a-4626-bb40-e2876c138d49|dd8b0d0a-0939-4b62-86af-ef865aee21d0",
+        "courtyards_overlap|144500001|98280001|8c4012f3-4bfc-4e2f-af8e-2c4c502b4b25|d908b74e-cef5-4772-97d5-ac892573d66a",
+        "courtyards_overlap|150200001|98250001|8c4012f3-4bfc-4e2f-af8e-2c4c502b4b25|b5051721-ca9b-4d1b-9505-19ae3a406b2a",
+        "courtyards_overlap|155207691|87900001|34ff2d7c-37cb-4fb2-b3f4-e3bb60609400|8c4012f3-4bfc-4e2f-af8e-2c4c502b4b25",
+        "courtyards_overlap|170909999|87900001|70ad651d-8fc6-4cb6-af51-28c8113ba023|a1a68341-bdd0-4e04-a621-cc5f4c9dcf71",
+        "courtyards_overlap|171999999|98200001|6f7ff4dc-6c61-41e8-8d2c-0c03a50f9439|a1a68341-bdd0-4e04-a621-cc5f4c9dcf71",
+        "starved_thermal|133490000|100000000|2f387667-b767-4840-8c9b-c9e6ffdceb6f|4046738c-11db-4550-94c8-377b34208f6e|B.Cu",
+        "starved_thermal|168460000|90000000|a560367f-84e8-41a5-aa84-8513c2b30019|a7055dbe-7f62-4b5e-a69f-37438005238f|F.Cu"
+      ],
       "meta": {
         "version": 2
       },
@@ -114,7 +124,7 @@
         "allow_blind_buried_vias": false,
         "allow_microvias": false,
         "max_error": 0.005,
-        "min_clearance": 0.15,
+        "min_clearance": 0.19999999999999998,
         "min_connection": 0.0,
         "min_copper_edge_clearance": 0.0,
         "min_hole_clearance": 0.0,
@@ -126,7 +136,7 @@
         "min_text_height": 0.7999999999999999,
         "min_text_thickness": 0.08,
         "min_through_hole_diameter": 0.19999999999999998,
-        "min_track_width": 0.15,
+        "min_track_width": 0.19999999999999998,
         "min_via_annular_width": 0.049999999999999996,
         "min_via_diameter": 0.39999999999999997,
         "solder_mask_clearance": 0.0,
@@ -177,7 +187,7 @@
       "track_widths": [
         0.0,
         0.1778,
-        0.2032,
+        0.2,
         0.3048,
         0.508,
         1.524

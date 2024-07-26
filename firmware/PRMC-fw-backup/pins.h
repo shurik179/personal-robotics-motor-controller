@@ -3,9 +3,8 @@
 
 
 //pins
-#define PIN_PRMC_TX      0
-#define PIN_PRMC_RX      1
-#define PIN_TX_CTRL      2
+#define PIN_PRMC_TX     0
+#define PIN_PRMC_RX     1
 #define PIN_MOTOR1_DIR   25
 #define PIN_MOTOR1_PWM   26
 #define PIN_MOTOR2_DIR   5
@@ -21,8 +20,6 @@
 #define PIN_ERROR2       3
 #define PIN_ENABLE1      24
 #define PIN_ENABLE2      11
-#define PIN_M1_SENSE     A1
-#define PIN_M2_SENSE     A2
 
 //function declaration to initialize pins
 void pins_init();

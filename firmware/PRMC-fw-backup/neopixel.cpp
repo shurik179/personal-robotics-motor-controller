@@ -19,17 +19,25 @@ void neopixel_init() {
     ws2812_program_init(neopixel_pio, neopixel_sm, neopixel_offset,PIN_NEOPIXEL, 800000, IS_RGBW);
 }
 
-void neopixel_set_color(uint32_t c) {
+void neopixel_set_colors(uint32_t c) {
     pio_sm_put_blocking(neopixel_pio, 0, c << 8u);
 }
 
 void neopixel_update(){
-  uint32_t color = YELLOW; //default - if no motor is enabled 
-  if (REGBANK[REG_ENABLE]) {//at least one motor is enabled 
-    color = GREEN;
-  }
-  if (REGBANK[REG_STATUS]) {//there is an error on one of motors
-    color = RED;
-  }
-  neopixel_set_color(color);
+    uint32_t color1, color2;
+    if ( ! have_i2c) {
+        neopixel_set_color(BLUE;
+        return;
+    }
+    color1=GREEN;
+    color2=GREEN;
+    if (*motor_status &  STATUS_M1_OFF) {
+        color1 = RED;
+    }
+    if (*motor_status &  STATUS_M2_OFF) {
+        color2 = RED;
+    }
+
+    //note that Neopixel 1 is on the side of Motor2 and vice versa
+    neopixel_set_colors(color2,color1);
 }

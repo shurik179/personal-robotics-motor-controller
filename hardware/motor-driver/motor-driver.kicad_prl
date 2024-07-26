@@ -17,15 +17,15 @@
     "ratsnest_display_mode": 0,
     "selection_filter": {
       "dimensions": false,
-      "footprints": false,
+      "footprints": true,
       "graphics": false,
       "keepouts": false,
       "lockedItems": false,
       "otherItems": false,
       "pads": false,
       "text": false,
-      "tracks": true,
-      "vias": true,
+      "tracks": false,
+      "vias": false,
       "zones": false
     },
     "visible_items": [
@@ -39,7 +39,6 @@
       9,
       10,
       11,
-      12,
       13,
       14,
       15,

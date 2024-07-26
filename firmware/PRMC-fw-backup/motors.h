@@ -2,7 +2,7 @@
 #define _PRMC_MOTORS_H
 #include "globals.h"
 
-#define MOTOR_FREQ 50000 
+#define MOTOR_FREQ 10000 
 
 void motors_init();
 void motors_on_off(uint8_t status);
@@ -17,13 +17,10 @@ inline void update_encoders(){
     } else {
         encoder[0]=   encoder_raw[0];
     }
-    reg_save32(REG_ENCODER1, encoder[0]);
     if (*reverse_config & 0x04) {
         encoder[1]= - encoder_raw[1];
     } else {
         encoder[1]=   encoder_raw[1];
     }
-    reg_save32(REG_ENCODER2, encoder[1]);
-
 }
 #endif
